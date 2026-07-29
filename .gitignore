@@ -1,0 +1,18 @@
+# Secrets - never commit
+.env
+.env.*
+!.env.example
+
+# Local lead fallback store (dev without keys)
+app/data/
+
+# Archived scaffolds from 01-scaffold.ps1 -Force
+app.bak-*/
+
+# Dependencies and builds (app/ has its own .gitignore from create-next-app)
+node_modules/
+.next/
+
+# OS noise
+Thumbs.db
+.DS_Store
