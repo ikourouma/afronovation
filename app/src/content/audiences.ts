@@ -15,7 +15,7 @@ export const audienceSegments: AudienceSegment[] = [
     label: "Investors & development partners",
     pitch:
       "Credible pipelines, governed data and funder-ready digital programmes, with monitoring and benefits realisation built in.",
-    ctaLabel: "Request an investor briefing",
+    ctaLabel: "Get the investor brief",
     ctaHref: "/contact?intent=investor",
   },
   {
@@ -31,7 +31,7 @@ export const audienceSegments: AudienceSegment[] = [
     label: "Consultants & specialists",
     pitch:
       "Program, change, cybersecurity and platform professionals who want to build digital public infrastructure across the U.S. and Africa.",
-    ctaLabel: "Join the consultant network",
+    ctaLabel: "Join the network",
     ctaHref: "/contact?intent=consultant",
   },
 ];

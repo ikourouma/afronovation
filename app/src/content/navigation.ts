@@ -1,9 +1,9 @@
 import type { MegaMenuSection, NavItem } from "./types";
 
 /** Small links in the utility bar above the flash banner. */
+// Insights and News live in the main menu, so they are not repeated here.
+// Search and the EN/FR switch join this bar when those features ship.
 export const utilityLinks: NavItem[] = [
-  { label: "Insights", href: "/insights" },
-  { label: "News", href: "/insights#news" },
   { label: "Careers", href: "/contact?intent=consultant" },
   { label: "Contact", href: "/contact" },
 ];
@@ -36,6 +36,13 @@ export const megaMenu: MegaMenuSection[] = [
         ],
       },
     ],
+    featured: {
+      eyebrow: "Start here",
+      title: "Executive briefing",
+      body: "A 30-minute working session with your leadership on priorities and fit.",
+      stats: [],
+      cta: { label: "Book a Briefing", href: "/contact?intent=briefing" },
+    },
   },
   {
     id: "platforms",
@@ -72,6 +79,7 @@ export const megaMenu: MegaMenuSection[] = [
         ],
       },
     ],
+    featured: null,
   },
   {
     id: "who-we-serve",
@@ -92,6 +100,16 @@ export const megaMenu: MegaMenuSection[] = [
         ],
       },
     ],
+    featured: {
+      eyebrow: "Success story · Zimbabwe",
+      title: "A national investment platform, live in months.",
+      body: null,
+      stats: [
+        { value: "26", label: "Published projects" },
+        { value: "10", label: "Provinces covered" },
+      ],
+      cta: { label: "See the results", href: "/#featured-engagement" },
+    },
   },
   {
     id: "insights",
@@ -99,17 +117,25 @@ export const megaMenu: MegaMenuSection[] = [
     intro: {
       title: "Insights",
       body: "Perspectives on digital government, platforms and transformation, plus company news.",
-      cta: { label: "Subscribe to updates", href: "#newsletter" },
+      cta: { label: "All insights", href: "/insights" },
     },
     groups: [
       {
         heading: "Read",
         links: [
-          { label: "Articles & perspectives", href: "/insights" },
-          { label: "News & announcements", href: "/insights#news" },
+          { label: "Perspectives", href: "/insights#perspectives", description: "Thought leadership from the team delivering the work." },
+          { label: "News & press releases", href: "/insights#news", description: "Announcements, launches and milestones." },
+          { label: "Reports & downloads", href: "/insights#reports", description: "Briefs and our Capabilities Portfolio." },
         ],
       },
     ],
+    featured: {
+      eyebrow: "Newsletter",
+      title: "Insights in your inbox",
+      body: "Occasional briefings on digital government, platforms and investment. No spam.",
+      stats: [],
+      cta: { label: "Subscribe", href: "#newsletter" },
+    },
   },
   {
     id: "company",
@@ -131,5 +157,12 @@ export const megaMenu: MegaMenuSection[] = [
         ],
       },
     ],
+    featured: {
+      eyebrow: "Careers",
+      title: "We're growing our consultant network",
+      body: "Program, change, cybersecurity and platform specialists across the U.S. and Africa.",
+      stats: [],
+      cta: { label: "Join the network", href: "/contact?intent=consultant" },
+    },
   },
 ];

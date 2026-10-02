@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+import { CredentialsStrip } from "@/components/credentials-strip";
 import { CtaSection } from "@/components/cta-section";
 import { InteriorHero } from "@/components/interior-hero";
 import { JsonLd } from "@/components/json-ld";
@@ -24,7 +25,7 @@ import {
   sectionHeadings,
   visionaryTeamCopy,
 } from "@/content/site";
-import { practiceAreas, teamMembers } from "@/content";
+import { methodologies, practiceAreas, teamMembers } from "@/content";
 import { getPracticeAreaIcon } from "@/lib/practice-area-icons";
 
 export const metadata: Metadata = {
@@ -110,11 +111,12 @@ export default function AboutPage() {
             description={visionaryTeamCopy}
             align="center"
           />
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {teamMembers.map((member) => (
               <TeamMemberCard key={member.slug} member={member} variant="full" />
             ))}
           </div>
+          <CredentialsStrip credentials={methodologies} />
         </Container>
       </Section>
 

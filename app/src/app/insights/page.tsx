@@ -15,6 +15,27 @@ export const metadata: Metadata = {
     "Perspectives on digital government, platforms and transformation across the U.S. and Africa, plus Afronovation news.",
 };
 
+const streams = [
+  {
+    id: "perspectives",
+    title: "Perspectives",
+    body: "Thought leadership on digital government, platforms and adoption from the team delivering the work.",
+    accent: "#e25c9e",
+  },
+  {
+    id: "news",
+    title: "News & press releases",
+    body: "Announcements, launches, partnerships and milestones.",
+    accent: "#6d52d8",
+  },
+  {
+    id: "reports",
+    title: "Reports & downloads",
+    body: "Briefs, reports and the Afronovation Capabilities Portfolio.",
+    accent: "#f1a13d",
+  },
+];
+
 // Articles and news become admin-managed in the content phase; until the
 // first ones are published this page points readers to the newsletter.
 export default function InsightsPage() {
@@ -36,15 +57,31 @@ export default function InsightsPage() {
         <div className="rule-gold h-1" aria-hidden />
       </section>
 
-      <Section id="news" spacing="xl" className="scroll-mt-24">
-        <Container className="space-y-8">
+      <Section spacing="xl">
+        <Container className="space-y-12">
           <SectionHeading
             title="First articles are on the way"
             description="Subscribe and we will send you new insights and company news as soon as they are published."
           />
+          <ul className="grid gap-5 md:grid-cols-3">
+            {streams.map((stream) => (
+              <li
+                key={stream.id}
+                id={stream.id}
+                className="scroll-mt-28 rounded-md border border-t-4 bg-card p-7"
+                style={{ borderTopColor: stream.accent }}
+              >
+                <h2 className="font-heading text-xl font-bold">{stream.title}</h2>
+                <p className="mt-2 font-serif leading-relaxed text-muted-foreground">
+                  {stream.body}
+                </p>
+                <p className="mt-5 text-sm font-semibold text-muted-foreground">Coming soon</p>
+              </li>
+            ))}
+          </ul>
           <Button asChild size="lg" className="h-12 px-6 text-base">
             <Link href="#newsletter">
-              Subscribe to updates
+              Subscribe
               <ArrowRight aria-hidden />
             </Link>
           </Button>

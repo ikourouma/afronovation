@@ -120,6 +120,9 @@ export function HeroCarousel({ slides, stats, rotationSeconds }: HeroCarouselPro
                     </Button>
                   ) : null}
                 </div>
+                {slide.ctaNote ? (
+                  <p className="mt-4 text-sm text-muted-foreground">{slide.ctaNote}</p>
+                ) : null}
               </div>
             );
           })}

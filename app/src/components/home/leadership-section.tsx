@@ -5,16 +5,10 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { SectionHeading } from "@/components/layout/section-heading";
-import type { Methodology, TeamMember } from "@/content/types";
+import type { TeamMember } from "@/content/types";
 import { media } from "@/lib/media";
 
-export function LeadershipSection({
-  members,
-  credentials,
-}: {
-  members: TeamMember[];
-  credentials: Methodology[];
-}) {
+export function LeadershipSection({ members }: { members: TeamMember[] }) {
   return (
     <Section spacing="xl">
       <Container className="space-y-12">
@@ -48,18 +42,6 @@ export function LeadershipSection({
             </li>
           ))}
         </ul>
-        <div className="flex flex-wrap items-center gap-3 border-t pt-8">
-          <p className="mr-2 text-sm font-semibold text-muted-foreground">Team credentials</p>
-          {credentials.map((credential) => (
-            <span
-              key={credential.code}
-              className="rounded-sm border border-l-4 border-l-violet px-3 py-1 text-sm"
-            >
-              <strong className="font-bold">{credential.code}</strong>{" "}
-              <span className="font-serif text-muted-foreground">{credential.name}</span>
-            </span>
-          ))}
-        </div>
       </Container>
     </Section>
   );

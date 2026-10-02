@@ -19,7 +19,7 @@ export const announcements: Announcement[] = [
     id: "zimbabwe-pilot",
     label: "Featured",
     message: "Zimbabwe's national investment platform is running end to end as a working pilot.",
-    linkLabel: "See the engagement",
+    linkLabel: "See the results",
     href: "/#featured-engagement",
     active: true,
     startsAt: null,

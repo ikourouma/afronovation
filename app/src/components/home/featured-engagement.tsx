@@ -45,7 +45,7 @@ export function FeaturedEngagement({ engagement }: { engagement: FeaturedEngagem
           </ol>
           <Button asChild size="lg" className="mt-10 h-12 px-6 text-base">
             <Link href={engagement.href}>
-              Discuss a national programme
+              Start a programme
               <ArrowRight aria-hidden />
             </Link>
           </Button>

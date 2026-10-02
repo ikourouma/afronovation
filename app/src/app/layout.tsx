@@ -3,6 +3,7 @@ import { Source_Serif_4, Urbanist } from "next/font/google";
 
 import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { MobileCtaBar } from "@/components/layout/mobile-cta-bar";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteTopBars } from "@/components/layout/site-top-bars";
 import { Providers } from "@/components/providers";
@@ -87,6 +88,7 @@ export default function RootLayout({
             {children}
           </main>
           <SiteFooter />
+          <MobileCtaBar />
           <Toaster richColors closeButton />
         </Providers>
       </body>

@@ -17,7 +17,6 @@ import {
   getActiveHeroSlides,
   getPublishedTestimonials,
   headlineStats,
-  methodologies,
   partnerLogos,
   portfolioIntro,
   portfolioItems,
@@ -51,7 +50,7 @@ export default function HomePage() {
       <StartSteps steps={startSteps} />
       <AudiencePaths segments={audienceSegments} />
       {testimonials.length > 0 ? <TestimonialsSection testimonials={testimonials} /> : null}
-      <LeadershipSection members={teamMembers} credentials={methodologies} />
+      <LeadershipSection members={teamMembers} />
       <CtaSection />
     </>
   );

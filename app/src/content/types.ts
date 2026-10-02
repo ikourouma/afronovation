@@ -174,6 +174,8 @@ export type HeroSlide = {
   body: string;
   primaryCta: HeroCta;
   secondaryCta: HeroCta | null;
+  /** Short reassurance line under the buttons, e.g. "No obligation". */
+  ctaNote: string | null;
   /** Optional background photo (media key). Falls back to the constellation. */
   imageKey: string | null;
   imageAlt: string | null;
@@ -193,6 +195,15 @@ export type MegaMenuGroup = {
   links: MegaMenuLink[];
 };
 
+/** Admin-managed promo card shown on the right of a mega menu panel. */
+export type MegaMenuFeature = {
+  eyebrow: string;
+  title: string;
+  body: string | null;
+  stats: { value: string; label: string }[];
+  cta: HeroCta;
+};
+
 export type MegaMenuSection = {
   id: string;
   label: string;
@@ -202,6 +213,7 @@ export type MegaMenuSection = {
     cta: HeroCta;
   };
   groups: MegaMenuGroup[];
+  featured: MegaMenuFeature | null;
 };
 
 export type PortfolioStatus = "flagship" | "operational" | "pilot";
