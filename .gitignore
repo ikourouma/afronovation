@@ -2,6 +2,7 @@
 .env
 .env.*
 !.env.example
+afronovation_APIs.md
 
 # Local lead fallback store (dev without keys)
 app/data/
