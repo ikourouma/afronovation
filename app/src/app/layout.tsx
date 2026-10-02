@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { SiteTopBars } from "@/components/layout/site-top-bars";
 import { Providers } from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
+import { getActiveSocialAccounts } from "@/content/social";
 import { contact, siteName, tagline } from "@/content/site";
 
 import "./globals.css";
@@ -63,6 +64,8 @@ const organizationJsonLd = {
     "@type": "PostalAddress",
     streetAddress: contact.address,
   },
+  // Official profiles, once each social account is switched on in the admin.
+  sameAs: getActiveSocialAccounts().map((account) => account.url),
 };
 
 export default function RootLayout({

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Logo } from "@/components/brand/logo";
 import { Container } from "@/components/layout/container";
 import { NewsletterForm } from "@/components/newsletter-form";
+import { SocialLinks } from "@/components/social-links";
 import { megaMenu } from "@/content/navigation";
 import { companyFacts, contact, footerLegalLinks, siteName } from "@/content/site";
 
@@ -46,6 +47,7 @@ export function SiteFooter() {
             Strategy, technology and digital transformation since {companyFacts.founded}.
           </p>
           <p className="mt-3 text-sm text-muted-foreground">{companyFacts.presence.join(" · ")}</p>
+          <SocialLinks tone="navy" className="mt-6" />
         </div>
 
         {footerColumns.map((column) => (

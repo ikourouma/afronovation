@@ -254,3 +254,20 @@ export type PortfolioHeadlineStat = {
   value: string;
   label: string;
 };
+
+export type SocialPlatform =
+  | "linkedin"
+  | "x"
+  | "youtube"
+  | "facebook"
+  | "instagram"
+  | "whatsapp";
+
+/** Company social account. Hidden on the site until a URL is set and it is switched on. */
+export type SocialAccount = {
+  platform: SocialPlatform;
+  label: string;
+  url: string | null;
+  active: boolean;
+  sortOrder: number;
+};

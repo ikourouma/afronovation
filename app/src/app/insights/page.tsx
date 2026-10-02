@@ -7,6 +7,7 @@ import { CtaSection } from "@/components/cta-section";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { SectionHeading } from "@/components/layout/section-heading";
+import { SocialLinks } from "@/components/social-links";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
@@ -79,12 +80,15 @@ export default function InsightsPage() {
               </li>
             ))}
           </ul>
-          <Button asChild size="lg" className="h-12 px-6 text-base">
-            <Link href="#newsletter">
-              Subscribe
-              <ArrowRight aria-hidden />
-            </Link>
-          </Button>
+          <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+            <Button asChild size="lg" className="h-12 px-6 text-base">
+              <Link href="#newsletter">
+                Subscribe
+                <ArrowRight aria-hidden />
+              </Link>
+            </Button>
+            <SocialLinks heading="Follow us" />
+          </div>
         </Container>
       </Section>
 

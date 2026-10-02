@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { SocialLinks } from "@/components/social-links";
 import { contact, contactPageCopy } from "@/content/site";
 
 export function ContactDetailsCard() {
@@ -44,9 +45,7 @@ export function ContactDetailsCard() {
             </a>
           </div>
         </address>
-        <p className="text-sm text-muted-foreground">
-          {contactPageCopy.socialComingSoon}
-        </p>
+        <SocialLinks heading="Follow us" />
       </CardContent>
     </Card>
   );

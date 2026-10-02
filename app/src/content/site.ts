@@ -118,8 +118,6 @@ export const contactPageCopy = {
   intro:
     "Want to get in touch? We'd love to hear from you. Here's how you can reach us.",
   contactUs: "Contact Us.",
-  socialComingSoon:
-    "Company social profiles are coming soon. Follow us for updates.",
   preferDirect: "Prefer email or phone?",
 } as const;
 

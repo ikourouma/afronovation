@@ -16,3 +16,4 @@ export * from "./announcements";
 export * from "./hero-slides";
 export * from "./navigation";
 export * from "./portfolio";
+export * from "./social";
