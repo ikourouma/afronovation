@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 
-import { platforms } from "@/content/platforms";
+import { getCollection } from "@/lib/cms/read";
+
+// Picks up platforms and articles added in the admin.
+export const revalidate = 3600;
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://afronovation.com";
 
@@ -17,8 +20,12 @@ const staticRoutes = [
   "/terms",
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
+  const [platforms, articles] = await Promise.all([
+    getCollection("platformPages"),
+    getCollection("articles"),
+  ]);
 
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${siteUrl}${route}`,
@@ -34,5 +41,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticEntries, ...platformEntries];
+  const articleEntries: MetadataRoute.Sitemap = articles
+    .filter((article) => article.published)
+    .map((article) => ({
+      url: `${siteUrl}/insights/${article.slug}`,
+      lastModified: new Date(article.publishedAt),
+      changeFrequency: "yearly",
+      priority: 0.6,
+    }));
+
+  return [...staticEntries, ...platformEntries, ...articleEntries];
 }

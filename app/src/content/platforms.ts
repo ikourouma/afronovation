@@ -380,21 +380,10 @@ export const platforms: Platform[] = [
   },
 ];
 
-export function getFeaturedPlatforms(): Platform[] {
-  return platforms.filter((platform) => platform.featured);
-}
-
 export function getPlatformBySlug(slug: string): Platform | undefined {
   return platforms.find((platform) => platform.slug === slug);
 }
 
-export function getFlagshipPlatform(): Platform {
-  const flagship = platforms.find((platform) => platform.status === "flagship");
-  if (!flagship) {
-    throw new Error("No flagship platform configured.");
-  }
-  return flagship;
-}
 
 export const futurePlatformsCallout = {
   name: "Future Platforms",

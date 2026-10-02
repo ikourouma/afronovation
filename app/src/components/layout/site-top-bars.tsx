@@ -3,15 +3,19 @@ import { Phone } from "lucide-react";
 
 import { FlashBanner } from "@/components/layout/flash-banner";
 import { Container } from "@/components/layout/container";
-import { getActiveAnnouncements } from "@/content/announcements";
+import { filterActiveAnnouncements } from "@/content/announcements";
 import { utilityLinks } from "@/content/navigation";
-import { companyFacts, contact } from "@/content/site";
-
-const phoneHref = contact.phone.replace(/[^\d+]/g, "");
+import { companyFacts } from "@/content/site";
+import { getCollection, getSingleton } from "@/lib/cms/read";
 
 /** Utility bar + admin-managed flash banner, above the sticky main nav. */
-export function SiteTopBars() {
-  const announcements = getActiveAnnouncements();
+export async function SiteTopBars() {
+  const [allAnnouncements, contact] = await Promise.all([
+    getCollection("announcements"),
+    getSingleton("contactDetails"),
+  ]);
+  const announcements = filterActiveAnnouncements(allAnnouncements);
+  const phoneHref = contact.phone.replace(/[^\d+]/g, "");
 
   return (
     <div className="theme-navy">

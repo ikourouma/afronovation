@@ -22,16 +22,18 @@ import {
 } from "@/components/ui/sheet";
 import { megaMenu } from "@/content/navigation";
 import { ctaLabels } from "@/content/site";
-import type { MegaMenuSection } from "@/content/types";
+import type { MegaMenuSection, MenuFeature } from "@/content/types";
 import { cn } from "@/lib/utils";
 
 const HOVER_CLOSE_DELAY_MS = 150;
 
 function MegaPanel({
   section,
+  featured,
   onNavigate,
 }: {
   section: MegaMenuSection;
+  featured: MenuFeature | null;
   onNavigate: () => void;
 }) {
   return (
@@ -42,7 +44,7 @@ function MegaPanel({
       <Container
         className={cn(
           "grid gap-10 py-8",
-          section.featured ? "lg:grid-cols-[260px_1fr_300px]" : "lg:grid-cols-[260px_1fr]",
+          featured ? "lg:grid-cols-[260px_1fr_300px]" : "lg:grid-cols-[260px_1fr]",
         )}
       >
         <div className="rounded-md bg-muted p-6">
@@ -63,7 +65,7 @@ function MegaPanel({
           className={cn(
             "grid gap-8",
             section.groups.length > 1 && "sm:grid-cols-2",
-            !section.featured && "xl:grid-cols-3",
+            !featured && "xl:grid-cols-3",
           )}
         >
           {section.groups.map((group) => (
@@ -107,23 +109,23 @@ function MegaPanel({
             </div>
           ))}
         </div>
-        {section.featured ? (
+        {featured ? (
           <div className="theme-navy relative isolate flex flex-col overflow-hidden rounded-md p-6">
             <span className="absolute inset-x-0 top-0 h-1 bg-brand-gradient" aria-hidden />
             <p className="text-xs font-semibold tracking-[0.16em] text-[#f3a9cf] uppercase">
-              {section.featured.eyebrow}
+              {featured.eyebrow}
             </p>
             <p className="mt-3 font-heading text-xl leading-snug font-bold">
-              {section.featured.title}
+              {featured.title}
             </p>
-            {section.featured.body ? (
+            {featured.body ? (
               <p className="mt-2 font-serif text-sm leading-relaxed text-muted-foreground">
-                {section.featured.body}
+                {featured.body}
               </p>
             ) : null}
-            {section.featured.stats.length > 0 ? (
+            {featured.stats.length > 0 ? (
               <dl className="mt-4 grid grid-cols-2 gap-3">
-                {section.featured.stats.map((stat) => (
+                {featured.stats.map((stat) => (
                   <div key={stat.label} className="flex flex-col-reverse border-t-2 border-pink pt-2">
                     <dt className="text-xs text-muted-foreground">{stat.label}</dt>
                     <dd className="font-heading text-2xl font-bold">{stat.value}</dd>
@@ -133,8 +135,8 @@ function MegaPanel({
             ) : null}
             <div className="mt-auto pt-5">
               <Button asChild size="sm">
-                <Link href={section.featured.cta.href} onClick={onNavigate}>
-                  {section.featured.cta.label}
+                <Link href={featured.cta.href} onClick={onNavigate}>
+                  {featured.cta.label}
                   <ArrowRight aria-hidden />
                 </Link>
               </Button>
@@ -146,7 +148,7 @@ function MegaPanel({
   );
 }
 
-export function SiteHeader() {
+export function SiteHeader({ features }: { features: MenuFeature[] }) {
   const [openId, setOpenId] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -316,7 +318,13 @@ export function SiteHeader() {
         </div>
       </Container>
 
-      {openSection ? <MegaPanel section={openSection} onNavigate={close} /> : null}
+      {openSection ? (
+        <MegaPanel
+          section={openSection}
+          featured={features.find((feature) => feature.menuId === openSection.id) ?? null}
+          onNavigate={close}
+        />
+      ) : null}
     </header>
   );
 }

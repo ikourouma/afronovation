@@ -216,3 +216,17 @@
     transform: scaleX(1);
   }
 }
+
+/* Scroll reveal (see components/layout/scroll-reveal.tsx). */
+@media (prefers-reduced-motion: no-preference) {
+  main > section {
+    transition:
+      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  main > section.reveal-hidden {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+}

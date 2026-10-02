@@ -5,9 +5,8 @@ import { Container } from "@/components/layout/container";
 import { NewsletterForm } from "@/components/newsletter-form";
 import { SocialLinks } from "@/components/social-links";
 import { megaMenu } from "@/content/navigation";
-import { companyFacts, contact, footerLegalLinks, siteName } from "@/content/site";
-
-const phoneHref = contact.phone.replace(/[^\d+]/g, "");
+import { companyFacts, footerLegalLinks, siteName } from "@/content/site";
+import { getSingleton } from "@/lib/cms/read";
 
 /* Footer columns reuse the main menu so the two never drift apart. */
 const footerColumns = megaMenu
@@ -17,7 +16,9 @@ const footerColumns = megaMenu
     links: section.groups.flatMap((group) => group.links).slice(0, 7),
   }));
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const contact = await getSingleton("contactDetails");
+  const phoneHref = contact.phone.replace(/[^\d+]/g, "");
   const currentYear = new Date().getFullYear();
 
   return (

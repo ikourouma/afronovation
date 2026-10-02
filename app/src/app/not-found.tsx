@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
-    <Section spacing="xl" className="bg-gradient-mesh">
+    <Section spacing="xl" className="bg-gradient-mesh grid min-h-screen place-items-center">
       <Container>
         <div className="mx-auto max-w-xl space-y-6 text-center">
           <div className="flex justify-center">

@@ -42,6 +42,6 @@ export const testimonials: Testimonial[] = [
   },
 ];
 
-export function getPublishedTestimonials(): Testimonial[] {
-  return testimonials.filter((testimonial) => testimonial.published);
+export function filterPublishedTestimonials(items: Testimonial[]): Testimonial[] {
+  return items.filter((testimonial) => testimonial.published);
 }

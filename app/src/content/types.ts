@@ -215,7 +215,6 @@ export type MegaMenuSection = {
     cta: HeroCta;
   };
   groups: MegaMenuGroup[];
-  featured: MegaMenuFeature | null;
 };
 
 export type PortfolioStatus = "flagship" | "operational" | "pilot";
@@ -273,3 +272,26 @@ export type SocialAccount = {
   active: boolean;
   sortOrder: number;
 };
+
+export type ArticleCategory = "perspectives" | "news" | "reports";
+
+/** Insights article (perspective, news item or downloadable report). */
+export type Article = {
+  slug: string;
+  title: string;
+  category: ArticleCategory;
+  excerpt: string;
+  /** Markdown. */
+  body: string;
+  coverImageKey: string | null;
+  coverImageAlt: string | null;
+  author: string;
+  /** ISO date (YYYY-MM-DD). */
+  publishedAt: string;
+  /** Optional file link for reports and downloads. */
+  downloadUrl: string | null;
+  published: boolean;
+};
+
+/** Mega-menu promo card, attached to a top-level menu by id. */
+export type MenuFeature = MegaMenuFeature & { menuId: string };

@@ -137,56 +137,63 @@ export async function POST(request: Request) {
   const hasEmail = Boolean(process.env.RESEND_API_KEY);
 
   try {
-    if (hasDatabase && hasEmail) {
-      const db = getDb();
-      const data = submission.data;
-
-      await db.insert(contactSubmissions).values({
-        fullName: data.fullName,
-        email: data.email,
-        phone: data.phone,
-        company: data.company || null,
-        interests:
-          submission.kind === "contact" ? [...submission.data.interests] : null,
-        preferredContactMethod:
-          submission.kind === "contact"
-            ? submission.data.preferredContactMethod
-            : null,
-        message: data.message || null,
-        consent: data.consent,
-        source: submission.kind === "demo-request" ? "demo-request" : "contact-form",
-        platformSlug:
-          submission.kind === "demo-request" ? submission.data.platformSlug : null,
-        organizationType:
-          submission.kind === "demo-request"
-            ? submission.data.organizationType
-            : null,
-        // Demo requests store their inquiry type; contact-page leads store
-        // which call to action brought them (briefing, investor, ...).
-        inquiryType:
-          submission.kind === "demo-request"
-            ? submission.data.inquiryType
-            : (submission.data.intent ?? "general"),
-        utmSource: data.utmSource || null,
-        utmMedium: data.utmMedium || null,
-        utmCampaign: data.utmCampaign || null,
-      });
-
-      try {
-        const resend = getResend();
-        await resend.emails.send({
-          from: CONTACT_FROM,
-          to: CONTACT_TO,
-          replyTo: data.email,
-          subject: buildEmailSubject(submission),
-          text: buildEmailBody(submission),
-        });
-      } catch (emailError) {
-        console.error("[contact] Email notification failed:", emailError);
-        return Response.json({ ok: true, warning: "email-deferred" });
-      }
-    } else {
+    if (!hasDatabase) {
+      // Local development without a database: keep the lead on disk.
       await saveLeadLocally(submission);
+      return Response.json({ ok: true });
+    }
+
+    const db = getDb();
+    const data = submission.data;
+
+    await db.insert(contactSubmissions).values({
+      fullName: data.fullName,
+      email: data.email,
+      phone: data.phone,
+      company: data.company || null,
+      interests:
+        submission.kind === "contact" ? [...submission.data.interests] : null,
+      preferredContactMethod:
+        submission.kind === "contact"
+          ? submission.data.preferredContactMethod
+          : null,
+      message: data.message || null,
+      consent: data.consent,
+      source: submission.kind === "demo-request" ? "demo-request" : "contact-form",
+      platformSlug:
+        submission.kind === "demo-request" ? submission.data.platformSlug : null,
+      organizationType:
+        submission.kind === "demo-request"
+          ? submission.data.organizationType
+          : null,
+      // Demo requests store their inquiry type; contact-page leads store
+      // which call to action brought them (briefing, investor, ...).
+      inquiryType:
+        submission.kind === "demo-request"
+          ? submission.data.inquiryType
+          : (submission.data.intent ?? "general"),
+      utmSource: data.utmSource || null,
+      utmMedium: data.utmMedium || null,
+      utmCampaign: data.utmCampaign || null,
+    });
+
+    // The lead is safely stored (and visible in /admin/leads); the email
+    // notification is a convenience on top.
+    if (!hasEmail) {
+      return Response.json({ ok: true, warning: "email-not-configured" });
+    }
+    try {
+      const resend = getResend();
+      await resend.emails.send({
+        from: CONTACT_FROM,
+        to: CONTACT_TO,
+        replyTo: data.email,
+        subject: buildEmailSubject(submission),
+        text: buildEmailBody(submission),
+      });
+    } catch (emailError) {
+      console.error("[contact] Email notification failed:", emailError);
+      return Response.json({ ok: true, warning: "email-deferred" });
     }
 
     return Response.json({ ok: true });

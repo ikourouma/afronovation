@@ -1,5 +1,6 @@
 import { SocialIcon } from "@/components/brand/social-icon";
-import { getActiveSocialAccounts } from "@/content/social";
+import { filterLiveSocialAccounts } from "@/content/social";
+import { getCollection } from "@/lib/cms/read";
 import { cn } from "@/lib/utils";
 
 type SocialLinksProps = {
@@ -11,8 +12,8 @@ type SocialLinksProps = {
 };
 
 /** Follow-us icons. Renders nothing until at least one account is live. */
-export function SocialLinks({ heading, className, tone = "light" }: SocialLinksProps) {
-  const accounts = getActiveSocialAccounts();
+export async function SocialLinks({ heading, className, tone = "light" }: SocialLinksProps) {
+  const accounts = filterLiveSocialAccounts(await getCollection("socialAccounts"));
   if (accounts.length === 0) return null;
 
   return (

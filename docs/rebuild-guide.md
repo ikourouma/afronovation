@@ -12,7 +12,7 @@ Collect these before touching the scripts (registry with exact locations: `knowl
 
 1. **Neon:** create a project at console.neon.tech; copy the pooled connection string (`DATABASE_URL`). Enable Neon Auth and copy `NEON_AUTH_BASE_URL`.
 2. **Cloudflare R2:** create bucket `afronovation-media`; create an R2 API token (Object Read & Write, scoped to the bucket); note account ID, access key ID, secret access key.
-3. **Resend:** create an API key; add and verify the sending domain `afronovation.com` (DNS records go into Hostinger - see Step 6).
+3. **Resend:** create an API key; add and verify the sending domain `afronovation.com` (DNS records go into Hostinger - see Step 7).
 4. **Vercel:** account + CLI login (`vercel login`).
 5. Copy `.env.example` to `app/.env.local` after Step 2 creates the `app/` folder, and fill every value. Never commit this file.
 
@@ -58,13 +58,18 @@ Writes the R2 S3 client helper, the Resend client, and the `/api/contact` route 
 
 Downloads the ~30 curated assets identified in `audit_report.md` Sections 7.1-7.2 from the live WordPress library into `app/public/media-staging/`. Review the folder, rename to stable kebab-case keys, then upload to your R2 bucket (dashboard drag-and-drop or an S3-compatible CLI). Point `R2_PUBLIC_URL` at the bucket's public URL or custom domain.
 
-## Step 6 - Auth (Phase 5; can be deferred)
+## Step 6 - Admin dashboard (run once per environment)
 
-```powershell
-.\scripts\03-setup-auth.ps1
-```
+The admin lives at `/admin/login` (signed-out visitors get a 404 on every other `/admin` page). Run these from `app/` with `DATABASE_URL`, `BETTER_AUTH_SECRET` and `BETTER_AUTH_URL` set (they are read from `app/.env.local`):
 
-Wires Neon Auth (managed Better Auth): auth config, route handler, client helper, and the `/admin` gate skeleton. Requires `DATABASE_URL`, `NEON_AUTH_BASE_URL`, and `BETTER_AUTH_SECRET` (generate: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`).
+1. `pnpm db:push` - creates/updates all tables (auth, content, approvals, change log, leads, newsletter).
+2. `pnpm db:seed` - imports the current website content into the admin. Safe to re-run: sections already edited are left alone.
+3. `pnpm admin:create "Full Name" you@afronovation.com "a-password-of-12+-characters"` - creates the first Platform Admin (no public sign-up exists). Re-running it for an existing email promotes that account and resets its password.
+4. Sign in at `/admin/login`, then add team members under **Users** (Platform Admin or Editor).
+
+Roles: **Platform Admin** publishes immediately, approves editors' changes, manages users and sees the change log. **Editor** changes go to **Approvals** first.
+
+Image uploads go to Cloudflare R2 when `R2_BUCKET_NAME` and `R2_PUBLIC_URL` are set; without them, uploads only work in local development.
 
 ## Step 7 - Deploy and cut over
 

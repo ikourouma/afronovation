@@ -4,10 +4,12 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Button } from "@/components/ui/button";
-import { contact, ctaLabels, ctaSection } from "@/content/site";
+import { ctaLabels, ctaSection } from "@/content/site";
+import { getSingleton } from "@/lib/cms/read";
 
 /** Closing call to action used at the end of every page. */
-export function CtaSection() {
+export async function CtaSection() {
+  const contact = await getSingleton("contactDetails");
   return (
     <Section spacing="xl">
       <Container>

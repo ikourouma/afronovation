@@ -18,3 +18,5 @@ export * from "./portfolio";
 export * from "./social";
 export * from "./solutions";
 export * from "./about";
+export * from "./articles";
+export * from "./menu-features";

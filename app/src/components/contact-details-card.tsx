@@ -1,11 +1,12 @@
 import { Globe2, Mail, MapPin, Phone } from "lucide-react";
 
 import { SocialLinks } from "@/components/social-links";
-import { companyFacts, contact, contactPageCopy } from "@/content/site";
+import { companyFacts, contactPageCopy } from "@/content/site";
+import { getSingleton } from "@/lib/cms/read";
 
-const phoneHref = `tel:${contact.phone.replace(/[^\d+]/g, "")}`;
-
-export function ContactDetailsCard() {
+export async function ContactDetailsCard() {
+  const contact = await getSingleton("contactDetails");
+  const phoneHref = `tel:${contact.phone.replace(/[^\d+]/g, "")}`;
   const rows = [
     { icon: MapPin, label: "Headquarters", value: contact.address, href: null },
     { icon: Mail, label: "Email", value: contact.email, href: `mailto:${contact.email}` },

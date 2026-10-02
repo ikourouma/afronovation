@@ -17,8 +17,8 @@ export const socialAccounts: SocialAccount[] = [
 
 export type LiveSocialAccount = SocialAccount & { url: string };
 
-export function getActiveSocialAccounts(): LiveSocialAccount[] {
-  return socialAccounts
+export function filterLiveSocialAccounts(accounts: SocialAccount[]): LiveSocialAccount[] {
+  return accounts
     .filter((account): account is LiveSocialAccount => account.active && Boolean(account.url))
     .sort((a, b) => a.sortOrder - b.sortOrder);
 }

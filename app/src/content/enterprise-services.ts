@@ -244,18 +244,18 @@ export const enterpriseServices: EnterpriseService[] = [
 ];
 
 export function getServicesByCategory(
+  services: EnterpriseService[],
   category: EnterpriseService["category"],
 ): EnterpriseService[] {
-  return enterpriseServices.filter((service) => service.category === category);
+  return services.filter((service) => service.category === category);
 }
 
-export function getServiceBySlug(slug: string): EnterpriseService | undefined {
-  return enterpriseServices.find((service) => service.slug === slug);
-}
-
-export function getServicesBySlugs(slugs: string[]): EnterpriseService[] {
+export function getServicesBySlugs(
+  services: EnterpriseService[],
+  slugs: string[],
+): EnterpriseService[] {
   return slugs
-    .map((slug) => getServiceBySlug(slug))
+    .map((slug) => services.find((service) => service.slug === slug))
     .filter((service): service is EnterpriseService => Boolean(service));
 }
 

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { SocialIcon } from "@/components/brand/social-icon";
+import { ExpandableText } from "@/components/expandable-text";
 import type { TeamMember } from "@/content/types";
 import { media } from "@/lib/media";
 
@@ -50,7 +51,9 @@ export function TeamMemberCard({
       </span>
       <h3 className="mt-5 font-heading text-xl font-bold">{member.name}</h3>
       <p className="mt-1 font-serif text-sm italic text-primary">{member.role}</p>
-      <p className="mt-4 flex-1 font-serif leading-relaxed text-muted-foreground">{member.bio}</p>
+      <div className="mt-4 flex flex-1">
+        <ExpandableText text={member.bio} name={member.name} />
+      </div>
       {member.credentials.length > 0 ? (
         <ul className="mt-5 flex flex-wrap gap-1.5" aria-label="Certifications">
           {member.credentials.map((credential) => (

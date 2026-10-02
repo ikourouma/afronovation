@@ -40,8 +40,11 @@ export const announcements: Announcement[] = [
 ];
 
 /** Active, in-date messages in display order, capped at three. */
-export function getActiveAnnouncements(now: Date = new Date()): Announcement[] {
-  return announcements
+export function filterActiveAnnouncements(
+  items: Announcement[],
+  now: Date = new Date(),
+): Announcement[] {
+  return items
     .filter((item) => {
       if (!item.active) return false;
       if (item.startsAt && new Date(item.startsAt) > now) return false;

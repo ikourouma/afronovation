@@ -2,7 +2,7 @@ import {
   enterpriseServiceCategories,
   getServicesByCategory,
 } from "@/content/enterprise-services";
-import { portfolioItems } from "@/content/portfolio";
+import { getCollection } from "@/lib/cms/read";
 import { cn } from "@/lib/utils";
 
 const principles = [
@@ -18,7 +18,11 @@ const principles = [
  * platforms composed from the shared enterprise digital services, with
  * program, change and adoption running alongside.
  */
-export function ArchitectureDiagram() {
+export async function ArchitectureDiagram() {
+  const [portfolioItems, services] = await Promise.all([
+    getCollection("portfolio"),
+    getCollection("enterpriseServices"),
+  ]);
   return (
     <figure className="space-y-4">
       <div className="grid gap-4 lg:grid-cols-[44px_1fr]">
@@ -60,7 +64,7 @@ export function ArchitectureDiagram() {
                 <div key={category.slug}>
                   <p className="text-sm font-bold">{category.name}</p>
                   <ul className="mt-2 space-y-1.5">
-                    {getServicesByCategory(category.slug).map((service) => (
+                    {getServicesByCategory(services, category.slug).map((service) => (
                       <li
                         key={service.slug}
                         className={cn(

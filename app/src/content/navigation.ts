@@ -36,13 +36,6 @@ export const megaMenu: MegaMenuSection[] = [
         ],
       },
     ],
-    featured: {
-      eyebrow: "Start here",
-      title: "Executive briefing",
-      body: "A 30-minute working session with your leadership on priorities and fit.",
-      stats: [],
-      cta: { label: "Book a Briefing", href: "/contact?intent=briefing" },
-    },
   },
   {
     id: "platforms",
@@ -79,7 +72,6 @@ export const megaMenu: MegaMenuSection[] = [
         ],
       },
     ],
-    featured: null,
   },
   {
     id: "who-we-serve",
@@ -100,16 +92,6 @@ export const megaMenu: MegaMenuSection[] = [
         ],
       },
     ],
-    featured: {
-      eyebrow: "Success story · Zimbabwe",
-      title: "A national investment platform, live in months.",
-      body: null,
-      stats: [
-        { value: "26", label: "Published projects" },
-        { value: "10", label: "Provinces covered" },
-      ],
-      cta: { label: "See the results", href: "/#featured-engagement" },
-    },
   },
   {
     id: "insights",
@@ -129,13 +111,6 @@ export const megaMenu: MegaMenuSection[] = [
         ],
       },
     ],
-    featured: {
-      eyebrow: "Newsletter",
-      title: "Insights in your inbox",
-      body: "Occasional briefings on digital government, platforms and investment. No spam.",
-      stats: [],
-      cta: { label: "Subscribe", href: "#newsletter" },
-    },
   },
   {
     id: "company",
@@ -157,12 +132,5 @@ export const megaMenu: MegaMenuSection[] = [
         ],
       },
     ],
-    featured: {
-      eyebrow: "Careers",
-      title: "We're growing our consultant network",
-      body: "Program, change, cybersecurity and platform specialists across the U.S. and Africa.",
-      stats: [],
-      cta: { label: "Join the network", href: "/contact?intent=consultant" },
-    },
   },
 ];

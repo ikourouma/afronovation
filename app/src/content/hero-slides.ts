@@ -63,8 +63,8 @@ export const heroSlides: HeroSlide[] = [
   },
 ];
 
-export function getActiveHeroSlides(): HeroSlide[] {
-  return heroSlides
+export function filterActiveHeroSlides(slides: HeroSlide[]): HeroSlide[] {
+  return slides
     .filter((slide) => slide.active)
     .sort((a, b) => a.sortOrder - b.sortOrder);
 }
