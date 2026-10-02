@@ -18,7 +18,11 @@ import {
   pageHeroes,
   sectionHeadings,
 } from "@/content/site";
-import { partnerLogos, testimonials, testimonialsIntro } from "@/content";
+import {
+  getPublishedTestimonials,
+  partnerLogos,
+  testimonialsIntro,
+} from "@/content";
 
 export const metadata: Metadata = {
   title: "Testimonials",
@@ -26,6 +30,9 @@ export const metadata: Metadata = {
 };
 
 export default function TestimonialsPage() {
+  // Placeholder testimonials stay hidden until approved in the admin.
+  const testimonials = getPublishedTestimonials();
+
   return (
     <>
       <InteriorHero
@@ -43,6 +50,13 @@ export default function TestimonialsPage() {
             title={sectionHeadings.whyClientsLoveUs}
             align="center"
           />
+
+          {testimonials.length === 0 ? (
+            <p className="mx-auto max-w-xl text-center font-serif text-lg text-muted-foreground">
+              Client stories are being prepared for publication. In the
+              meantime, explore the platforms we have built.
+            </p>
+          ) : null}
 
           <div className="hidden md:block">
             <div className="grid gap-6 md:grid-cols-3">

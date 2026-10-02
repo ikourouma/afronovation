@@ -1,22 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Source_Serif_4, Urbanist } from "next/font/google";
 
 import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { SiteTopBars } from "@/components/layout/site-top-bars";
 import { Providers } from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
 import { contact, siteName, tagline } from "@/content/site";
 
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Urbanist stands in for the portfolio's Century Gothic (headings, UI);
+// Source Serif 4 for its Cambria body copy.
+const urbanist = Urbanist({
+  variable: "--font-urbanist",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
   subsets: ["latin"],
 });
 
@@ -44,7 +47,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0e14",
+  themeColor: "#02132c",
 };
 
 const organizationJsonLd = {
@@ -69,7 +72,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full dark`}
+      className={`${urbanist.variable} ${sourceSerif.variable} h-full`}
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col">
@@ -78,6 +81,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <Providers>
+          <SiteTopBars />
           <SiteHeader />
           <main id="main-content" className="flex-1">
             {children}

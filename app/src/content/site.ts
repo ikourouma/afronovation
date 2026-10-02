@@ -1,9 +1,11 @@
 import type { ContactDetails, NavItem } from "./types";
 
-export const siteName = "afronovation, Inc.";
+export const siteName = "Afronovation, Inc.";
 
 export const tagline =
-  "Inspiring possibilities through strategy, technology, and digital transformation.";
+  "We help governments and enterprises across the U.S. and Africa turn strategy into working digital systems.";
+
+export const brandLine = "Inspiring possibilities.";
 
 export const contact: ContactDetails = {
   address: "127 Long Shadow Ln., Cary, NC 27518",
@@ -12,7 +14,13 @@ export const contact: ContactDetails = {
 };
 
 export const mission =
-  "At Afronovation, we believe technology and innovation are the catalysts for sustainable growth and transformation.";
+  "A strategy, technology and digital transformation company. We pair senior advisory leadership with in-house platform engineering, and make sure people adopt what we build.";
+
+export const companyFacts = {
+  founded: 2018,
+  headquarters: "Cary, North Carolina",
+  presence: ["United States", "Côte d'Ivoire", "Guinea", "Sierra Leone"],
+} as const;
 
 export const aboutSummary =
   "We provide digital solutions that transform strategy into measurable impact and help businesses and governments drive growth through program management, digital transformation, and innovative technology solutions.";
@@ -57,10 +65,11 @@ export const visionaryTeamCopy =
   "Our visionary team combines strategy, technology, and change expertise to deliver innovative solutions that drive growth, empower organizations, and create lasting impact.";
 
 export const ctaSection = {
-  headline: "Don't Be Shy, Say Hello.",
+  headline: "Start with an executive briefing.",
   subcopy:
-    "Want to get in touch? We'd love to hear from you. Here's how you can reach us.",
-  buttonLabel: "Contact us",
+    "A working session with your leadership on priorities and fit. No obligation, and you leave with a clear view of where to begin.",
+  buttonLabel: "Book a Briefing",
+  closingLine: "Let's inspire possibilities together.",
 } as const;
 
 export const sectionHeadings = {
@@ -120,8 +129,11 @@ export const servicesPageCopy = {
 } as const;
 
 export const ctaLabels = {
-  primary: "Get in touch",
-  heroPrimary: "Get in touch",
+  primary: "Book a Briefing",
+  primaryHref: "/contact?intent=briefing",
+  partner: "Partner with us",
+  partnerHref: "/contact?intent=partnership",
+  heroPrimary: "Book a Briefing",
   heroSecondary: "Explore our services",
   exploreServices: "Explore our services",
   learnMore: "Learn more",

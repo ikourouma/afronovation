@@ -1,44 +1,31 @@
 import type { PartnerLogo } from "./types";
 
+// Client logos approved for public display (2026-10). More can be added from
+// the admin once permission to show them is confirmed.
 export const partnerLogos: PartnerLogo[] = [
   {
-    name: "Oracle",
-    imageKey: "partners/oracle.png",
-    alt: "Oracle logo",
-  },
-  {
-    name: "Cisco",
-    imageKey: "partners/cisco.png",
-    alt: "Cisco logo",
-  },
-  {
-    name: "Microsoft",
-    imageKey: "partners/microsoft.png",
-    alt: "Microsoft logo",
-  },
-  {
-    name: "Amazon Web Services",
-    imageKey: "partners/aws-wide.png",
-    alt: "Amazon Web Services logo",
-  },
-  {
     name: "African Development Bank",
-    imageKey: "partners/afdb-wide.png",
+    imageKey: "partners/afdb-logo.png",
     alt: "African Development Bank logo",
   },
   {
-    name: "African Union",
-    imageKey: "partners/african-union.png",
-    alt: "African Union logo",
+    name: "Microsoft",
+    imageKey: "partners/microsoft-logo.png",
+    alt: "Microsoft logo",
   },
   {
-    name: "Smart Africa",
-    imageKey: "partners/smart-africa.png",
-    alt: "Smart Africa logo",
+    name: "Cisco",
+    imageKey: "partners/cisco-logo.png",
+    alt: "Cisco logo",
+  },
+  {
+    name: "Amazon Web Services",
+    imageKey: "partners/aws-logo.png",
+    alt: "Amazon Web Services logo",
   },
   {
     name: "Zensar",
-    imageKey: "partners/zensar.png",
+    imageKey: "partners/zensar-logo.png",
     alt: "Zensar logo",
   },
 ];

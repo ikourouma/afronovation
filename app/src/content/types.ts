@@ -27,6 +27,8 @@ export type Testimonial = {
   role: string;
   company: string;
   confirmed: boolean;
+  /** Only published testimonials render on the site (admin switch). */
+  published: boolean;
 };
 
 export type PartnerLogo = {
@@ -136,4 +138,107 @@ export type AudienceSegment = {
   pitch: string;
   ctaLabel: string;
   ctaHref: string;
+};
+
+/*
+ * Admin-managed entities (redesign). Each shape mirrors the database row the
+ * admin dashboard will edit, so swapping the static modules for DB reads is a
+ * data-source change only.
+ */
+
+/** Flash banner message - up to 3 active at once, rotated in the top bar. */
+export type Announcement = {
+  id: string;
+  label: string;
+  message: string;
+  linkLabel: string | null;
+  href: string | null;
+  active: boolean;
+  /** ISO date strings; null means no limit. */
+  startsAt: string | null;
+  endsAt: string | null;
+  sortOrder: number;
+};
+
+export type HeroCta = {
+  label: string;
+  href: string;
+};
+
+export type HeroSlide = {
+  id: string;
+  /** Short label for the slide selector, e.g. "Governments". */
+  tabLabel: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+  primaryCta: HeroCta;
+  secondaryCta: HeroCta | null;
+  /** Optional background photo (media key). Falls back to the constellation. */
+  imageKey: string | null;
+  imageAlt: string | null;
+  active: boolean;
+  sortOrder: number;
+};
+
+export type MegaMenuLink = {
+  label: string;
+  href: string;
+  description?: string;
+  badge?: string;
+};
+
+export type MegaMenuGroup = {
+  heading: string;
+  links: MegaMenuLink[];
+};
+
+export type MegaMenuSection = {
+  id: string;
+  label: string;
+  intro: {
+    title: string;
+    body: string;
+    cta: HeroCta;
+  };
+  groups: MegaMenuGroup[];
+};
+
+export type PortfolioStatus = "flagship" | "operational" | "pilot";
+
+export type PortfolioItem = {
+  slug: string;
+  name: string;
+  status: PortfolioStatus;
+  sector: string;
+  summary: string;
+  href: string;
+  externalUrl: string | null;
+  icon: string;
+  sortOrder: number;
+};
+
+export type EngagementStat = {
+  value: string;
+  label: string;
+};
+
+export type FeaturedEngagement = {
+  eyebrow: string;
+  title: string;
+  body: string;
+  stats: EngagementStat[];
+  statsNote: string;
+  journey: { title: string; detail: string }[];
+  href: string;
+};
+
+export type StartStep = {
+  title: string;
+  description: string;
+};
+
+export type PortfolioHeadlineStat = {
+  value: string;
+  label: string;
 };

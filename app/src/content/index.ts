@@ -12,3 +12,7 @@ export * from "./methodologies";
 export * from "./faq";
 export * from "./audiences";
 export * from "./contact-form";
+export * from "./announcements";
+export * from "./hero-slides";
+export * from "./navigation";
+export * from "./portfolio";

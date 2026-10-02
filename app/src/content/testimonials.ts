@@ -12,6 +12,9 @@ export const testimonials: Testimonial[] = [
     company: "Globex",
     // TODO(stakeholder-Q3): authenticity/anonymization pending
     confirmed: false,
+    // Placeholder copy carried over from the WordPress site - hidden until
+    // replaced with a real, approved testimonial in the admin.
+    published: false,
   },
   {
     quote:
@@ -21,6 +24,9 @@ export const testimonials: Testimonial[] = [
     company: "Initech",
     // TODO(stakeholder-Q3): authenticity/anonymization pending
     confirmed: false,
+    // Placeholder copy carried over from the WordPress site - hidden until
+    // replaced with a real, approved testimonial in the admin.
+    published: false,
   },
   {
     quote:
@@ -30,5 +36,12 @@ export const testimonials: Testimonial[] = [
     company: "Globex",
     // TODO(stakeholder-Q3): authenticity/anonymization pending
     confirmed: false,
+    // Placeholder copy carried over from the WordPress site - hidden until
+    // replaced with a real, approved testimonial in the admin.
+    published: false,
   },
 ];
+
+export function getPublishedTestimonials(): Testimonial[] {
+  return testimonials.filter((testimonial) => testimonial.published);
+}

@@ -9,8 +9,8 @@
 | **Current platform** | WordPress on Hostinger (see `audit_report.md`) |
 | **Target platform** | Next.js on Vercel; domain and DNS stay at Hostinger |
 | **Created** | July 28, 2026 |
-| **Status** | Phase 2 - Dark Conversion Redesign implemented (Enterprise Digital Services + Platforms ecosystem) |
-| **Design direction** | Dark-forward, stat-driven, conversion-focused (Stripe / Daba Finance / Azumo / EmbassyOS synthesis) - see Section 5.4 |
+| **Status** | Phase R1 - Portfolio-aligned redesign: design system, header (utility bar + flash banner + mega menu), rotating hero and new homepage implemented |
+| **Design direction** | Matches the 2026 Capabilities Portfolio: white editorial pages, navy constellation bands, pink-violet lightbulb logo, gold rule - see Section 5.5 (supersedes 5.4) |
 
 ---
 
@@ -128,6 +128,21 @@ Reference synthesis: Stripe and EmbassyOS (dark navy base, gradient-mesh glows, 
 - **Brand identity:** raster WordPress logo replaced by a `Wordmark` component (lowercase "afronovation" with a gold leading "a") and a code-generated (`next/og` `ImageResponse`) rounded-square "a" icon mark for favicon/apple-icon/manifest - no binary logo assets checked in.
 - **Utilities:** `bg-gradient-mesh` (hero/CTA backgrounds), `bg-radial-glow` (spotlight cards), `stat-number` (gradient big numbers), `badge-roadmap` (Future-service / Target-outcome pill), `skip-link` (a11y).
 - **Ecosystem framing:** Afronovation is positioned as an *Enterprise Platform Company* - a catalog of reusable **Enterprise Digital Services** (Bridge* microservices) composed into **Mission-Specific Platforms** (full case studies). See Section 6.4-6.5.
+
+### 5.5 Portfolio-aligned redesign (supersedes 5.4, decided 2026-10-02)
+
+Source of truth for content and look: *Afronovation Capabilities Portfolio 2026 (ZIDA Annex Edition)*.
+
+- **Positioning:** "We help governments and enterprises across the U.S. and Africa turn strategy into working digital systems."
+- **Brand:** original pink-to-violet lightbulb logo kept (`brand/logo-full.png` on navy, `brand/logo-full-dark.png` on white). The text `Wordmark` was removed. A new word logo remains optional.
+- **Theme:** light base; `.theme-navy` re-scopes tokens for navy bands. Fonts: Urbanist (stands in for Century Gothic) for headings/UI, Source Serif 4 (for Cambria) for body copy.
+- **Header (AfDEC model, lighter):** utility bar, admin-managed flash banner (max 3 rotating messages, pause + dismiss), sticky main nav with 5 mega menus (Solutions, Platforms, Who We Serve, Insights, Company) and two CTAs: **Book a Briefing** (primary) and Partner with us.
+- **Hero:** admin-managed rotating slides (`content/hero-slides.ts`), 8s each, tabs with progress bar, pause control, no autoplay for reduced-motion users.
+- **Homepage (10 blocks):** hero + portfolio stats, client logos (AfDB, Microsoft, Cisco, AWS, Zensar), 4 practices, portfolio grid (9 platforms), featured engagement (Zimbabwe), how to start (4 steps), choose your path (4 audiences), testimonials (hidden until published), leadership, closing CTA. Newsletter band in the footer of every page.
+- **Testimonials:** the 3 WordPress testimonials are placeholders with `published: false`; nothing renders until real ones are approved.
+- **Newsletter:** `newsletter_subscribers` table (double opt-in: pending -> confirmed), `/api/newsletter` and `/api/newsletter/confirm`. Run `drizzle-kit push` to create the table.
+- **Admin (next phase):** roles Platform Admin (everything, users, publishing) and Editor (edits need Platform Admin approval); no public sign-up; change log. Every new content module (`announcements`, `hero-slides`, `navigation`, `portfolio`, `audiences`) is shaped like its future DB table.
+- **Language:** English first, built ready for French.
 
 ---
 
@@ -311,3 +326,4 @@ Carried from the audit; resolve before the content module is finalized (Phase 2)
 |---|---|
 | 2026-07-28 | Initial knowledge base created from audit + approved plan (mega menu, conversion-focused redesign, Vercel hosting with Hostinger DNS) |
 | 2026-07-29 | Dark Conversion Redesign implemented: real Neon/R2/Resend credentials wired into `app/.env.local`; dark-forward design tokens and text-based wordmark/icon-mark shipped; `/projects` replaced by `/platforms` (7 case studies + EmbassyOS flagship) and new `/enterprise-services` (18-service Bridge catalog in 5 categories); `contact_submissions` extended for platform demo requests; homepage rebuilt with stat bar, audience strip, methodology badges, comparison section, engagement process, flagship spotlight, logo marquee, testimonial carousel, and FAQ; SEO/trust pass added (dynamic OG images, JSON-LD, sitemap, robots, real Privacy/Terms copy, custom 404) |
+| 2026-10-02 | Portfolio-aligned redesign (Phase R1): brand/logo restored, light editorial theme with navy bands, utility bar + rotating flash banner + mega menu, rotating admin-ready hero, new homepage from the Capabilities Portfolio (9 platforms, 4 practices, Zimbabwe engagement, Sarah Kuruswo added), placeholder testimonials hidden, newsletter (double opt-in) added, Insights placeholder page |

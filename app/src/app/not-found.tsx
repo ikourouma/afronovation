@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-import { Wordmark } from "@/components/brand/wordmark";
+import { Logo } from "@/components/brand/logo";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ export default function NotFound() {
       <Container>
         <div className="mx-auto max-w-xl space-y-6 text-center">
           <div className="flex justify-center">
-            <Wordmark className="text-2xl" />
+            <Logo tone="light" className="h-10" />
           </div>
           <p className="stat-number text-6xl!">404</p>
           <h1 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">

@@ -3,10 +3,10 @@ import type { PracticeArea } from "./types";
 export const practiceAreas: PracticeArea[] = [
   {
     slug: "program-change-management",
-    name: "program & change management",
-    tagline: "Guiding Change, Driving Success.",
+    name: "Program & Change Management",
+    tagline: "Guiding change, driving success.",
     summary:
-      "Our Program & Change Management practice ensures that complex initiatives are delivered on time, within scope, and with sustainable adoption.",
+      "Complex programmes delivered on time and in scope, with adoption that lasts.",
     description:
       "Guiding Change, Driving Success. Our Program & Change Management practice ensures that complex initiatives are delivered on time, within scope, and with sustainable adoption. We combine proven methodologies—such as Agile, Lean, PROSCI, and PMI best practices—with deep stakeholder engagement to manage risk, align teams, and maximize ROI.",
     fullDescription:
@@ -20,10 +20,10 @@ export const practiceAreas: PracticeArea[] = [
   },
   {
     slug: "technology-platform-development",
-    name: "Technology & platform development",
-    tagline: "Building Platforms for Growth.",
+    name: "Technology & Platform Development",
+    tagline: "Building platforms for growth.",
     summary:
-      "From concept to execution, Afronovation develops modern, scalable, and secure technology solutions tailored to your business needs.",
+      "Secure, scalable platforms, portals and apps on a reusable service architecture.",
     description:
       "Building Platforms for Growth. From concept to execution, Afronovation develops modern, scalable, and secure technology solutions tailored to your business needs. Whether it's custom applications, SaaS platforms, websites, or mobile apps, we integrate cutting-edge design with seamless user experience.",
     fullDescription:
@@ -38,10 +38,10 @@ export const practiceAreas: PracticeArea[] = [
   },
   {
     slug: "digital-transformation",
-    name: "digital transformation",
-    tagline: "Reimagining the Future, Today.",
+    name: "Digital Transformation",
+    tagline: "Reimagining the future, today.",
     summary:
-      "Digital transformation is more than technology—it's about reimagining processes, culture, and customer engagement.",
+      "Strategy, operating models and processes that turn ambition into measurable value.",
     description:
       "Reimagining the Future, Today. Digital transformation is more than technology—it's about reimagining processes, culture, and customer engagement. Afronovation partners with organizations to design and implement transformation strategies that deliver measurable value.",
     fullDescription:
@@ -52,6 +52,22 @@ export const practiceAreas: PracticeArea[] = [
       "IT modernization",
       "government digitalization",
       "business process reengineering",
+    ],
+  },
+  {
+    slug: "cybersecurity-digital-trust",
+    name: "Cybersecurity & Digital Trust",
+    tagline: "Securing the digital state.",
+    summary:
+      "Protection, compliance and trust services for institutions that hold national data.",
+    description:
+      "Securing the digital state. Protection, compliance and trust services for institutions that hold national data - from risk assessments and security audits to data-protection compliance and national CERT/CSIRT readiness.",
+    fullDescription:
+      "Every digital service depends on institutions trusting each other's data. Afronovation helps governments and enterprises protect what they hold and prove it: risk assessments and security audits, data-protection compliance, PKI and digital-signature trust services delivered with partners, and the design of security operations, SOC and CSIRT capabilities with incident-response planning.",
+    keyServices: [
+      "Risk assessment & security audits",
+      "Data protection & compliance",
+      "National CERT/CSIRT readiness",
     ],
   },
 ];

@@ -86,3 +86,19 @@ export const platforms = pgTable("platforms", {
     .defaultNow()
     .notNull(),
 });
+
+// Newsletter subscribers (double opt-in: "pending" until the emailed link is
+// clicked, then "confirmed"). Managed and exported from the admin.
+export const newsletterSubscribers = pgTable("newsletter_subscribers", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  email: text("email").notNull().unique(),
+  fullName: text("full_name"),
+  interests: text("interests").array().notNull().default([]),
+  status: text("status").notNull().default("pending"),
+  confirmToken: text("confirm_token").notNull().unique(),
+  source: text("source").notNull().default("website"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .defaultNow()
+    .notNull(),
+  confirmedAt: timestamp("confirmed_at", { withTimezone: true }),
+});

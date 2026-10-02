@@ -1,129 +1,102 @@
 import Link from "next/link";
 
-import { Wordmark } from "@/components/brand/wordmark";
+import { Logo } from "@/components/brand/logo";
 import { Container } from "@/components/layout/container";
-import { Separator } from "@/components/ui/separator";
-import {
-  companyNav,
-  contact,
-  footerLegalLinks,
-  mission,
-  navLabels,
-  siteName,
-} from "@/content/site";
-import { practiceAreas } from "@/content/practice-areas";
+import { NewsletterForm } from "@/components/newsletter-form";
+import { megaMenu } from "@/content/navigation";
+import { companyFacts, contact, footerLegalLinks, siteName } from "@/content/site";
 
 const phoneHref = contact.phone.replace(/[^\d+]/g, "");
+
+/* Footer columns reuse the main menu so the two never drift apart. */
+const footerColumns = megaMenu
+  .filter((section) => ["solutions", "platforms", "company"].includes(section.id))
+  .map((section) => ({
+    label: section.label,
+    links: section.groups.flatMap((group) => group.links).slice(0, 7),
+  }));
 
 export function SiteFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto border-t bg-muted/30">
-      <Container className="py-12 lg:py-16">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
-          <div className="space-y-4">
-            <Link href="/" aria-label="afronovation home">
-              <Wordmark />
-            </Link>
-            <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-              {mission}
+    <footer className="theme-navy mt-auto">
+      <div className="rule-gold h-1" aria-hidden />
+
+      <section id="newsletter" aria-labelledby="newsletter-heading" className="scroll-mt-24 border-b border-white/10">
+        <Container className="grid gap-8 py-14 lg:grid-cols-[1fr_1.1fr] lg:items-start lg:gap-16">
+          <div>
+            <h2 id="newsletter-heading" className="font-heading text-2xl font-bold sm:text-3xl">
+              Insights for leaders building the digital state
+            </h2>
+            <p className="mt-3 max-w-lg font-serif text-lg leading-relaxed text-muted-foreground">
+              Occasional briefings on digital government, platforms and investment across the U.S. and Africa. No spam.
             </p>
           </div>
+          <NewsletterForm />
+        </Container>
+      </section>
 
-          <div>
-            <h2 className="text-sm font-semibold">{navLabels.services}</h2>
-            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              {practiceAreas.map((area) => (
-                <li key={area.slug}>
-                  <Link
-                    href={`/services/#${area.slug}`}
-                    className="capitalize transition-colors hover:text-foreground"
-                  >
-                    {area.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-sm font-semibold">{navLabels.platforms}</h2>
-            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <li>
-                <Link
-                  href="/platforms"
-                  className="transition-colors hover:text-foreground"
-                >
-                  {navLabels.allPlatforms}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/enterprise-services"
-                  className="transition-colors hover:text-foreground"
-                >
-                  {navLabels.enterpriseServices}
-                </Link>
-              </li>
-            </ul>
-
-            <h2 className="mt-8 text-sm font-semibold">{navLabels.company}</h2>
-            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              {companyNav.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="transition-colors hover:text-foreground"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-sm font-semibold">{navLabels.contact}</h2>
-            <address className="mt-4 space-y-2 text-sm not-italic text-muted-foreground">
-              <p>{contact.address}</p>
-              <p>
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="transition-colors hover:text-foreground"
-                >
-                  {contact.email}
-                </a>
-              </p>
-              <p>
-                <a
-                  href={`tel:${phoneHref}`}
-                  className="transition-colors hover:text-foreground"
-                >
-                  {contact.phone}
-                </a>
-              </p>
-            </address>
-          </div>
+      <Container className="grid gap-12 py-14 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1.2fr]">
+        <div>
+          <Link href="/" aria-label="Afronovation home" className="inline-block">
+            <Logo tone="light" className="h-10" />
+          </Link>
+          <p className="mt-5 max-w-xs font-serif text-sm leading-relaxed text-muted-foreground">
+            Strategy, technology and digital transformation since {companyFacts.founded}.
+          </p>
+          <p className="mt-3 text-sm text-muted-foreground">{companyFacts.presence.join(" · ")}</p>
         </div>
 
-        <Separator className="my-8" />
+        {footerColumns.map((column) => (
+          <nav key={column.label} aria-label={column.label}>
+            <h2 className="text-sm font-bold">{column.label}</h2>
+            <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
+              {column.links.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className="transition-colors hover:text-foreground">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
 
-        <div className="flex flex-col gap-4 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>© {currentYear} {siteName}</p>
-          <div className="flex flex-wrap gap-4">
-            {footerLegalLinks.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="transition-colors hover:text-foreground"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
+        <div>
+          <h2 className="text-sm font-bold">Contact</h2>
+          <address className="mt-4 space-y-2.5 text-sm not-italic text-muted-foreground">
+            <p>{contact.address}</p>
+            <p>
+              <a href={`mailto:${contact.email}`} className="transition-colors hover:text-foreground">
+                {contact.email}
+              </a>
+            </p>
+            <p>
+              <a href={`tel:${phoneHref}`} className="transition-colors hover:text-foreground">
+                {contact.phone}
+              </a>
+            </p>
+          </address>
         </div>
       </Container>
+
+      <div className="border-t border-white/10">
+        <Container className="flex flex-col gap-3 py-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {currentYear} {siteName} All rights reserved.
+          </p>
+          <ul className="flex flex-wrap gap-5">
+            {footerLegalLinks.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="transition-colors hover:text-foreground">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </div>
     </footer>
   );
 }

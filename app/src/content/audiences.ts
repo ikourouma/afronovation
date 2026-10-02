@@ -1,28 +1,37 @@
 import type { AudienceSegment } from "./types";
 
+/** "Choose your path" - one clear next step for each audience we serve. */
 export const audienceSegments: AudienceSegment[] = [
   {
-    slug: "governments",
-    label: "Governments & Public Sector",
+    slug: "clients",
+    label: "Governments & enterprises",
     pitch:
-      "Modernize citizen services, diaspora engagement, and cross-agency operations on sovereign, secure infrastructure - from a single ministry pilot to a national program.",
-    ctaLabel: "Explore public-sector platforms",
-    ctaHref: "/platforms",
+      "Ministries, agencies, diplomatic missions and enterprises modernising services, operations and data on platforms they keep authority over.",
+    ctaLabel: "Book a Briefing",
+    ctaHref: "/contact?intent=briefing",
   },
   {
-    slug: "enterprises",
-    label: "Enterprises",
+    slug: "investors",
+    label: "Investors & development partners",
     pitch:
-      "Modernize legacy systems, run large-scale change programs, and integrate enterprise-grade digital services without building them in-house.",
-    ctaLabel: "Explore Enterprise Digital Services",
-    ctaHref: "/enterprise-services",
+      "Credible pipelines, governed data and funder-ready digital programmes, with monitoring and benefits realisation built in.",
+    ctaLabel: "Request an investor briefing",
+    ctaHref: "/contact?intent=investor",
   },
   {
-    slug: "startups",
-    label: "Startups & Scale-ups",
+    slug: "partners",
+    label: "Technology & delivery partners",
     pitch:
-      "Skip years of infrastructure build-out: compose proven identity, AI, communications, and payments services into your product from day one.",
-    ctaLabel: "Talk to our team",
-    ctaHref: "/contact",
+      "We lead every engagement as the single accountable partner and bring in specialists with decades of national-scale delivery.",
+    ctaLabel: "Partner with us",
+    ctaHref: "/contact?intent=partnership",
+  },
+  {
+    slug: "consultants",
+    label: "Consultants & specialists",
+    pitch:
+      "Program, change, cybersecurity and platform professionals who want to build digital public infrastructure across the U.S. and Africa.",
+    ctaLabel: "Join the consultant network",
+    ctaHref: "/contact?intent=consultant",
   },
 ];

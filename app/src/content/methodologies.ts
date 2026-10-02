@@ -1,10 +1,11 @@
 import type { Methodology } from "./types";
 
+/** Team credentials, as listed in the 2026 Capabilities Portfolio. */
 export const methodologies: Methodology[] = [
-  { code: "PMP", name: "Project Management Professional" },
-  { code: "PROSCI", name: "Change Management" },
-  { code: "Agile", name: "Agile & Scrum Delivery" },
-  { code: "SAFe", name: "Scaled Agile Framework" },
-  { code: "Lean", name: "Lean Process Improvement" },
-  { code: "CISM", name: "Certified Information Security Manager" },
+  { code: "PMP", name: "Project Management" },
+  { code: "PROSCI", name: "Change" },
+  { code: "CSM", name: "Scrum" },
+  { code: "SAFe", name: "Scaled Agile" },
+  { code: "Lean", name: "Process" },
+  { code: "CISM", name: "Info. Security" },
 ];
