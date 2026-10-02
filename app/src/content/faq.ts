@@ -14,7 +14,7 @@ export const faqItems: FaqItem[] = [
   {
     question: "How long do engagements typically take?",
     answer:
-      "It depends on scope: a focused advisory or single-service integration can move in weeks, while a full mission-specific platform (like EmbassyOS or Civis) is typically phased over several months with production-ready increments delivered along the way rather than a single big-bang launch.",
+      "It depends on scope: a focused advisory or single-service integration can move in weeks, while a full mission-specific platform (like EmbassyOS or CivisOS) is typically phased over several months with production-ready increments delivered along the way rather than a single big-bang launch.",
   },
   {
     question: "Who does Afronovation serve?",
@@ -24,7 +24,7 @@ export const faqItems: FaqItem[] = [
   {
     question: "How is data handled and secured across your platforms?",
     answer:
-      "Every platform is built on our security and identity services (BridgeProtect, BridgeVault, and related services), with access governed by policy rather than ad hoc configuration. Multi-tenant platforms like Civis isolate each client's data by design. Specific certifications and compliance posture are discussed and documented per engagement.",
+      "Every platform is built on our security and identity services (BridgeProtect, BridgeVault, and related services), with access governed by policy rather than ad hoc configuration. Multi-tenant platforms like CivisOS isolate each client's data by design. Specific certifications and compliance posture are discussed and documented per engagement.",
   },
   {
     question: "What is the difference between an Enterprise Digital Service and a Platform?",

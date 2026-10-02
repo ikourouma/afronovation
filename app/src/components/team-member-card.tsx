@@ -1,18 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { SocialIcon } from "@/components/brand/social-icon";
 import type { TeamMember } from "@/content/types";
 import { media } from "@/lib/media";
-import { SocialIcon } from "@/components/brand/social-icon";
 
 type TeamMemberCardProps = {
   member: TeamMember;
@@ -47,48 +38,42 @@ export function TeamMemberCard({
   }
 
   return (
-    <Card className="h-full">
-      <CardHeader className="items-center text-center">
-        <div className="relative mx-auto size-32 overflow-hidden rounded-full ring-2 ring-border sm:size-36">
-          <Image
-            src={media(member.headshotKey)}
-            alt={member.headshotAlt}
-            fill
-            className="object-cover"
-            sizes="144px"
-          />
-        </div>
-        <CardTitle className="text-xl">{member.name}</CardTitle>
-        <CardDescription>{member.role}</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          {member.bio}
-        </p>
-        {member.credentials.length > 0 ? (
-          <ul className="flex flex-wrap justify-center gap-2">
-            {member.credentials.map((credential) => (
-              <li key={credential}>
-                <Badge variant="secondary">{credential}</Badge>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-        {member.linkedinUrl ? (
-          <div className="flex justify-center pt-2">
-            <Button asChild variant="outline" size="sm">
-              <Link
-                href={member.linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <SocialIcon platform="linkedin" />
-                LinkedIn
-              </Link>
-            </Button>
-          </div>
-        ) : null}
-      </CardContent>
-    </Card>
+    <article className="flex h-full flex-col rounded-md border bg-card p-7">
+      <span className="self-start rounded-full bg-brand-gradient p-[3px]">
+        <Image
+          src={media(member.headshotKey)}
+          alt={member.headshotAlt}
+          width={128}
+          height={128}
+          className="size-32 rounded-full border-4 border-background object-cover object-top"
+        />
+      </span>
+      <h3 className="mt-5 font-heading text-xl font-bold">{member.name}</h3>
+      <p className="mt-1 font-serif text-sm italic text-primary">{member.role}</p>
+      <p className="mt-4 flex-1 font-serif leading-relaxed text-muted-foreground">{member.bio}</p>
+      {member.credentials.length > 0 ? (
+        <ul className="mt-5 flex flex-wrap gap-1.5" aria-label="Certifications">
+          {member.credentials.map((credential) => (
+            <li
+              key={credential}
+              className="rounded-sm border border-l-4 border-l-violet px-2 py-0.5 text-xs font-bold"
+            >
+              {credential}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      {member.linkedinUrl ? (
+        <a
+          href={member.linkedinUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-5 inline-flex items-center gap-2 self-start text-sm font-semibold text-primary underline-offset-4 hover:underline"
+        >
+          <SocialIcon platform="linkedin" />
+          {member.name.split(" ")[0]} on LinkedIn
+        </a>
+      ) : null}
+    </article>
   );
 }

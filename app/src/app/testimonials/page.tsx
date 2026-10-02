@@ -1,32 +1,20 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 import { CtaSection } from "@/components/cta-section";
+import { ClientLogos } from "@/components/home/client-logos";
+import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { InteriorHero } from "@/components/interior-hero";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { SectionHeading } from "@/components/layout/section-heading";
-import { PartnerLogoRow } from "@/components/partner-logo-row";
-import { TestimonialCard } from "@/components/testimonial-card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import {
-  pageHeroes,
-  sectionHeadings,
-} from "@/content/site";
-import {
-  getPublishedTestimonials,
-  partnerLogos,
-  testimonialsIntro,
-} from "@/content";
+import { Button } from "@/components/ui/button";
+import { getPublishedTestimonials, partnerLogos } from "@/content";
 
 export const metadata: Metadata = {
-  title: "Testimonials",
-  description: testimonialsIntro,
+  title: "Client stories",
+  description: "What governments, institutions and enterprises say about working with Afronovation.",
 };
 
 export default function TestimonialsPage() {
@@ -36,65 +24,31 @@ export default function TestimonialsPage() {
   return (
     <>
       <InteriorHero
-        eyebrow={pageHeroes.testimonials.eyebrow}
-        title={pageHeroes.testimonials.title}
-        description={testimonialsIntro}
-        imageKey="heroes/testimonial-bg.jpg"
-        imageAlt="Background imagery for Afronovation testimonials section"
+        eyebrow="Client stories"
+        title="Results our clients can point to."
+        description="Measurable outcomes and lasting adoption, in our clients' own words."
       />
 
-      <Section spacing="lg">
-        <Container className="space-y-10">
-          <SectionHeading
-            eyebrow="Testimonials."
-            title={sectionHeadings.whyClientsLoveUs}
-            align="center"
-          />
+      {testimonials.length > 0 ? (
+        <TestimonialsSection testimonials={testimonials} />
+      ) : (
+        <Section spacing="xl">
+          <Container className="space-y-6">
+            <SectionHeading
+              title="Client stories are being prepared"
+              description="In the meantime, see the platforms we have built and the national investment platform now running in Zimbabwe."
+            />
+            <Button asChild size="lg" className="h-12 px-6 text-base">
+              <Link href="/platforms">
+                Explore platforms
+                <ArrowRight aria-hidden />
+              </Link>
+            </Button>
+          </Container>
+        </Section>
+      )}
 
-          {testimonials.length === 0 ? (
-            <p className="mx-auto max-w-xl text-center font-serif text-lg text-muted-foreground">
-              Client stories are being prepared for publication. In the
-              meantime, explore the platforms we have built.
-            </p>
-          ) : null}
-
-          <div className="hidden md:block">
-            <div className="grid gap-6 md:grid-cols-3">
-              {testimonials.map((testimonial) => (
-                <TestimonialCard
-                  key={testimonial.author}
-                  testimonial={testimonial}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="md:hidden">
-            <Carousel opts={{ align: "start", loop: true }}>
-              <CarouselContent>
-                {testimonials.map((testimonial) => (
-                  <CarouselItem key={testimonial.author}>
-                    <TestimonialCard testimonial={testimonial} />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="static mt-4 translate-x-0 translate-y-0" />
-              <CarouselNext className="static mt-4 translate-x-0 translate-y-0" />
-            </Carousel>
-          </div>
-        </Container>
-      </Section>
-
-      <Section spacing="lg" className="border-t bg-muted/20">
-        <Container className="space-y-8">
-          <SectionHeading
-            title={sectionHeadings.forwardThinkingPartners}
-            align="center"
-          />
-          <PartnerLogoRow logos={partnerLogos} grayscale={false} />
-        </Container>
-      </Section>
-
+      <ClientLogos logos={partnerLogos} />
       <CtaSection />
     </>
   );

@@ -1,21 +1,18 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, Target } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, Target } from "lucide-react";
 import { notFound } from "next/navigation";
 
+import { Constellation } from "@/components/brand/constellation";
 import { CtaSection } from "@/components/cta-section";
 import { DemoRequestForm } from "@/components/demo-request-form";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { SectionHeading } from "@/components/layout/section-heading";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { getServicesBySlugs } from "@/content/enterprise-services";
 import { getPlatformBySlug, platforms } from "@/content/platforms";
-import { ctaLabels, navLabels } from "@/content/site";
-import { media } from "@/lib/media";
+import { cn } from "@/lib/utils";
 
 type PlatformDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -53,120 +50,108 @@ export default async function PlatformDetailPage({
 
   const poweredByServices = getServicesBySlugs(platform.poweredBy);
 
+  const statusLabel =
+    platform.status === "flagship"
+      ? "Flagship"
+      : platform.status === "pilot"
+        ? "Pilot"
+        : platform.status === "upcoming"
+          ? "Upcoming"
+          : "Operational";
+
   return (
     <>
-      <Section spacing="md" className="border-b bg-gradient-mesh">
-        <Container>
-          <Button asChild variant="ghost" size="sm" className="mb-6 -ml-2">
-            <Link href="/platforms">
-              <ArrowLeft aria-hidden />
+      <section className="theme-navy relative isolate overflow-hidden">
+        <Constellation className="-z-10" />
+        <Container className="grid gap-12 py-14 sm:py-20 lg:grid-cols-[1.4fr_1fr] lg:items-center">
+          <div>
+            <Link
+              href="/platforms"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-foreground"
+            >
+              <ArrowLeft className="size-4" aria-hidden />
               All platforms
             </Link>
-          </Button>
-
-          <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-            <div className="space-y-4">
-              <div className="flex flex-wrap items-center gap-2">
-                <Badge variant="secondary">{platform.sector}</Badge>
-                {platform.status === "flagship" ? (
-                  <Badge className="bg-primary text-primary-foreground">
-                    {navLabels.flagshipPlatform}
-                  </Badge>
-                ) : null}
-              </div>
-              <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-                {platform.name}
-              </h1>
-              <p className="text-lg text-primary">{platform.tagline}</p>
-              <p className="leading-relaxed text-muted-foreground">
-                {platform.summary}
-              </p>
+            <div className="mt-6 flex flex-wrap items-center gap-2">
+              <span
+                className={cn(
+                  "rounded-sm px-2 py-0.5 text-[11px] font-bold tracking-wide uppercase",
+                  platform.status === "flagship" ? "bg-brand-gradient-deep text-white" : "bg-white/12 text-white",
+                )}
+              >
+                {statusLabel}
+              </span>
+              <span className="font-serif text-sm italic text-muted-foreground">{platform.sector}</span>
+            </div>
+            <h1 className="mt-4 font-heading text-4xl font-bold tracking-tight sm:text-5xl">
+              {platform.name}
+            </h1>
+            <p className="mt-3 font-heading text-xl font-semibold text-[#f3a9cf]">{platform.tagline}</p>
+            <p className="mt-5 max-w-2xl font-serif text-lg leading-relaxed text-muted-foreground">
+              {platform.summary}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild size="lg" className="h-12 px-6 text-base">
+                <Link href="#demo">
+                  Request a demo
+                  <ArrowRight aria-hidden />
+                </Link>
+              </Button>
               {platform.externalUrl ? (
-                <Button asChild variant="outline">
-                  <Link
-                    href={platform.externalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {ctaLabels.visitLiveSite}
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="h-12 border-white/30 bg-transparent px-6 text-base hover:bg-white/10"
+                >
+                  <a href={platform.externalUrl} target="_blank" rel="noopener noreferrer">
+                    Visit the live site
                     <ExternalLink aria-hidden />
-                  </Link>
+                  </a>
                 </Button>
               ) : null}
             </div>
-            <div className="relative aspect-4/3 overflow-hidden rounded-2xl">
-              <Image
-                src={media(platform.imageKey)}
-                alt={platform.imageAlt}
-                fill
-                priority
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
+          </div>
+
+          <div className="rounded-md border border-white/12 bg-navy-2/95 p-6 backdrop-blur">
+            <h2 className="text-xs font-semibold tracking-[0.18em] text-[#f3a9cf] uppercase">
+              At a glance
+            </h2>
+            <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-6">
+              {[
+                { label: "Sector", value: platform.atAGlance.sector },
+                { label: "Status", value: platform.atAGlance.status },
+                { label: "Region", value: platform.atAGlance.region },
+                { label: "Services used", value: `${poweredByServices.length} enterprise services` },
+              ].map((item) => (
+                <div key={item.label} className="border-t-2 border-pink/70 pt-3">
+                  <dt className="text-xs text-muted-foreground">{item.label}</dt>
+                  <dd className="mt-0.5 font-semibold">{item.value}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </Container>
-      </Section>
-
-      <Section spacing="md" className="border-b bg-muted/10">
-        <Container>
-          <p className="mb-4 text-sm font-medium tracking-wide text-muted-foreground uppercase">
-            At a glance
-          </p>
-          <dl className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-            <div>
-              <dt className="text-xs text-muted-foreground">Sector</dt>
-              <dd className="mt-1 font-medium">{platform.atAGlance.sector}</dd>
-            </div>
-            <div>
-              <dt className="text-xs text-muted-foreground">Region</dt>
-              <dd className="mt-1 font-medium">{platform.atAGlance.region}</dd>
-            </div>
-            <div>
-              <dt className="text-xs text-muted-foreground">Status</dt>
-              <dd className="mt-1 font-medium">{platform.atAGlance.status}</dd>
-            </div>
-            <div>
-              <dt className="text-xs text-muted-foreground">
-                Services used
-              </dt>
-              <dd className="mt-1 font-medium">
-                {platform.atAGlance.servicesUsed.length} services
-              </dd>
-            </div>
-          </dl>
-        </Container>
-      </Section>
+        <div className="rule-gold h-1" aria-hidden />
+      </section>
 
       <Section spacing="lg">
         <Container className="grid gap-8 lg:grid-cols-2">
-          <Card>
-            <CardContent className="space-y-3 pt-6">
-              <h2 className="font-heading text-xl font-semibold">
-                The Challenge
-              </h2>
-              <p className="leading-relaxed text-muted-foreground">
-                {platform.challenge}
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="space-y-3 pt-6">
-              <h2 className="font-heading text-xl font-semibold">
-                The Opportunity
-              </h2>
-              <p className="leading-relaxed text-muted-foreground">
-                {platform.opportunity}
-              </p>
-            </CardContent>
-          </Card>
+          <article className="rounded-md border border-t-4 border-t-pink bg-card p-7">
+            <h2 className="font-heading text-xl font-bold">The challenge</h2>
+            <p className="mt-3 font-serif leading-relaxed text-muted-foreground">{platform.challenge}</p>
+          </article>
+          <article className="rounded-md border border-t-4 border-t-violet bg-card p-7">
+            <h2 className="font-heading text-xl font-bold">The opportunity</h2>
+            <p className="mt-3 font-serif leading-relaxed text-muted-foreground">{platform.opportunity}</p>
+          </article>
         </Container>
       </Section>
 
       <Section spacing="lg" className="bg-muted/10">
         <Container className="space-y-6">
-          <SectionHeading title="Our Approach" />
-          <p className="max-w-3xl leading-relaxed text-muted-foreground">
+          <SectionHeading title="Our approach" />
+          <p className="max-w-3xl font-serif text-lg leading-relaxed text-muted-foreground">
             {platform.approach}
           </p>
         </Container>
@@ -174,15 +159,15 @@ export default async function PlatformDetailPage({
 
       <Section spacing="lg">
         <Container className="space-y-6">
-          <SectionHeading title="Platform Highlights" />
+          <SectionHeading title="Platform highlights" />
           <ul className="grid gap-4 sm:grid-cols-2">
             {platform.highlights.map((highlight) => (
               <li
                 key={highlight}
-                className="flex items-start gap-3 rounded-xl border bg-card p-4"
+                className="flex items-start gap-3 rounded-md border bg-card p-4"
               >
-                <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
-                <span className="text-sm leading-relaxed">{highlight}</span>
+                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-pink" />
+                <span className="font-serif leading-relaxed">{highlight}</span>
               </li>
             ))}
           </ul>
@@ -192,9 +177,8 @@ export default async function PlatformDetailPage({
       <Section spacing="lg" className="bg-muted/10">
         <Container className="space-y-6">
           <SectionHeading
-            eyebrow="Reinforcing the platform strategy"
-            title="Enterprise Service Architecture"
-            description="The reusable Enterprise Digital Services that compose this platform."
+            title="Built on enterprise services"
+            description="The reusable services this platform is composed from."
           />
           <div className="flex flex-wrap gap-2">
             {poweredByServices.map((service) => (
@@ -202,12 +186,9 @@ export default async function PlatformDetailPage({
                 key={service.slug}
                 href={`/enterprise-services#${service.category}`}
               >
-                <Badge
-                  variant="outline"
-                  className="px-3 py-1.5 text-sm hover:border-primary/50 hover:text-primary"
-                >
+                <span className="inline-block rounded-sm border bg-background px-3 py-1.5 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">
                   {service.name}
-                </Badge>
+                </span>
               </Link>
             ))}
           </div>
@@ -216,14 +197,14 @@ export default async function PlatformDetailPage({
 
       <Section spacing="lg">
         <Container className="space-y-6">
-          <SectionHeading title="Expected Impact" />
+          <SectionHeading title="Expected impact" />
           <ul className="grid gap-4 sm:grid-cols-2">
             {platform.expectedImpact.map((impact) => (
               <li
                 key={impact.label}
-                className="flex items-start justify-between gap-3 rounded-xl border bg-card p-4"
+                className="flex items-start justify-between gap-3 rounded-md border bg-card p-4"
               >
-                <span className="text-sm leading-relaxed">{impact.label}</span>
+                <span className="font-serif leading-relaxed">{impact.label}</span>
                 {impact.targetOutcome ? (
                   <span
                     className="badge-roadmap shrink-0"
@@ -242,7 +223,7 @@ export default async function PlatformDetailPage({
       <Section spacing="lg" className="bg-muted/10">
         <Container className="grid gap-8 lg:grid-cols-2">
           <div className="space-y-6">
-            <SectionHeading title="Who It Serves" />
+            <SectionHeading title="Who it serves" />
             <div className="space-y-4">
               <div>
                 <p className="text-sm font-medium text-primary">Primary</p>
@@ -281,13 +262,11 @@ export default async function PlatformDetailPage({
         </Container>
       </Section>
 
-      <Section spacing="lg" id="demo">
+      <Section spacing="xl" id="demo" className="scroll-mt-24 bg-surface">
         <Container className="mx-auto max-w-2xl space-y-6">
           <SectionHeading
-            eyebrow="Get Started"
-            title={`Request a ${platform.name} Demo`}
-            description="Tell us about your organization and we'll follow up with next steps."
-            align="center"
+            title={`Request a demo of ${platform.name}`}
+            description="Tell us about your organization and we will follow up within one business day."
           />
           <DemoRequestForm platformSlug={platform.slug} platformName={platform.name} />
         </Container>

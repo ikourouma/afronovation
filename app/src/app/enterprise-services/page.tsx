@@ -1,116 +1,117 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
+import { ArchitectureDiagram } from "@/components/architecture-diagram";
 import { CtaSection } from "@/components/cta-section";
 import { InteriorHero } from "@/components/interior-hero";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { SectionHeading } from "@/components/layout/section-heading";
+import { Button } from "@/components/ui/button";
 import {
   enterpriseServiceCategories,
+  enterpriseServiceStatusLabels,
+  enterpriseServices,
   getServicesByCategory,
 } from "@/content/enterprise-services";
-import { enterpriseServicesPageCopy, pageHeroes } from "@/content/site";
 import { cn } from "@/lib/utils";
+
+const liveCount = enterpriseServices.filter((service) => service.status !== "roadmap").length;
 
 export const metadata: Metadata = {
   title: "Enterprise Digital Services",
-  description: enterpriseServicesPageCopy.summary,
+  description:
+    "The shared catalogue of reusable enterprise digital services that every Afronovation platform is composed from.",
 };
 
 export default function EnterpriseServicesPage() {
   return (
     <>
       <InteriorHero
-        eyebrow={pageHeroes.enterpriseServices.eyebrow}
-        title={pageHeroes.enterpriseServices.title}
-        description={enterpriseServicesPageCopy.summary}
-      />
+        eyebrow="Enterprise digital services"
+        title={`${liveCount} reusable services. Any mission.`}
+        description="Every Afronovation platform is composed from the same catalogue, so proven capabilities, not one-off code, power each new mission."
+      >
+        <Button asChild size="lg" className="h-12 px-6 text-base">
+          <Link href="/platforms">
+            See the platforms
+            <ArrowRight aria-hidden />
+          </Link>
+        </Button>
+      </InteriorHero>
 
-      <Section spacing="lg">
-        <Container className="space-y-16">
-          {enterpriseServiceCategories.map((category, index) => {
-            const services = getServicesByCategory(category.slug);
-            const reversed = index % 2 === 1;
-
-            return (
-              <div
-                key={category.slug}
-                id={category.slug}
-                className="scroll-mt-24 space-y-6"
-              >
-                <div
-                  className={cn(
-                    "flex flex-col gap-2 border-b pb-4",
-                    reversed && "sm:text-right sm:items-end",
-                  )}
-                >
-                  <h2 className="font-heading text-2xl font-semibold sm:text-3xl">
-                    {category.name}
-                  </h2>
-                  <p className="text-muted-foreground">{category.tagline}</p>
-                </div>
-                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                  {services.map((service) => (
-                    <Card key={service.slug} className="h-full">
-                      <CardHeader>
-                        <div className="flex items-center justify-between gap-2">
-                          <CardTitle>{service.name}</CardTitle>
-                          {service.status === "roadmap" ? (
-                            <span className="badge-roadmap shrink-0">
-                              Roadmap
-                            </span>
-                          ) : null}
-                        </div>
-                        <CardDescription className="leading-relaxed">
-                          {service.description}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="mb-2 text-xs font-medium tracking-wide text-muted-foreground uppercase">
-                          {service.status === "roadmap" ? "Planned for" : "Used by"}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {service.usedBy.map((usedBy) => (
-                            <Badge key={usedBy} variant="secondary">
-                              {usedBy}
-                            </Badge>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+      <Section spacing="xl">
+        <Container className="space-y-10">
+          <SectionHeading
+            title="One proven architecture"
+            description="Platforms sit on shared services; program, change and adoption run alongside every deployment."
+          />
+          <ArchitectureDiagram />
         </Container>
       </Section>
 
-      <Section spacing="md" className="border-t bg-muted/10">
-        <Container>
-          <div className="rounded-2xl border bg-radial-glow px-6 py-10 text-center sm:px-10">
-            <p className="font-heading text-xl font-semibold text-balance sm:text-2xl">
-              See these services composed into real platforms.
-            </p>
-            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-              Every mission-specific platform we build draws from this same
-              catalog of reusable enterprise capabilities.
-            </p>
-            <Link
-              href="/platforms"
-              className="mt-6 inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/80"
-            >
-              View all platforms
-            </Link>
-          </div>
+      <Section spacing="xl" className="bg-surface">
+        <Container className="space-y-16">
+          {enterpriseServiceCategories.map((category) => (
+            <div key={category.slug} id={category.slug} className="scroll-mt-28 space-y-6">
+              <div className="flex flex-col gap-1 border-b pb-4">
+                <h2 className="flex items-center gap-3 font-heading text-2xl font-bold sm:text-3xl">
+                  <span className="heading-marker" aria-hidden />
+                  {category.name}
+                </h2>
+                <p className="font-serif text-lg text-muted-foreground">{category.tagline}</p>
+              </div>
+              <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {getServicesByCategory(category.slug).map((service) => (
+                  <li
+                    key={service.slug}
+                    className={cn(
+                      "flex flex-col rounded-md border bg-card p-6",
+                      service.status === "roadmap" && "border-dashed",
+                    )}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="font-heading text-lg font-bold">
+                        {service.name}
+                        {service.deliveredWithPartners ? (
+                          <span className="ml-1.5 text-gold" title="Delivered with partners">◆</span>
+                        ) : null}
+                      </h3>
+                      <span
+                        className={cn(
+                          "shrink-0 rounded-sm px-2 py-0.5 text-[11px] font-bold tracking-wide uppercase",
+                          service.status === "available" && "bg-[#e6f4ee] text-[#185c3d]",
+                          service.status === "pilot" && "bg-secondary text-secondary-foreground",
+                          service.status === "roadmap" && "bg-muted text-muted-foreground",
+                        )}
+                      >
+                        {enterpriseServiceStatusLabels[service.status]}
+                      </span>
+                    </div>
+                    <p className="mt-3 flex-1 font-serif leading-relaxed text-muted-foreground">
+                      {service.description}
+                    </p>
+                    <p className="mt-5 text-xs font-semibold text-muted-foreground">
+                      {service.status === "roadmap" ? "Planned for" : "Used by"}
+                    </p>
+                    <ul className="mt-2 flex flex-wrap gap-1.5">
+                      {service.usedBy.map((usedBy) => (
+                        <li key={usedBy} className="rounded-sm bg-muted px-2 py-0.5 text-xs font-medium">
+                          {usedBy}
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+              {getServicesByCategory(category.slug).some((service) => service.deliveredWithPartners) ? (
+                <p className="text-sm text-muted-foreground">
+                  <span className="text-gold">◆</span> Delivered with partners.
+                </p>
+              ) : null}
+            </div>
+          ))}
         </Container>
       </Section>
 

@@ -1,37 +1,35 @@
 import type { Metadata } from "next";
 
-import {
-  ContactDetailsCard,
-  ContactDetailsStrip,
-} from "@/components/contact-details-card";
+import { ContactDetailsCard } from "@/components/contact-details-card";
 import { ContactForm } from "@/components/contact-form";
 import { InteriorHero } from "@/components/interior-hero";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
-import { contactPageCopy, pageHeroes } from "@/content/site";
+import { contactIntents, parseContactIntent } from "@/content/contact-form";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: contactPageCopy.intro,
+  description:
+    "Book an executive briefing, request the investor brief, partner with us or join our consultant network.",
 };
 
-export default function ContactPage() {
+type ContactPageProps = {
+  searchParams: Promise<{ intent?: string | string[] }>;
+};
+
+export default async function ContactPage({ searchParams }: ContactPageProps) {
+  const intent = parseContactIntent((await searchParams).intent);
+  const copy = contactIntents[intent];
+
   return (
     <>
-      <InteriorHero
-        eyebrow={pageHeroes.contact.eyebrow}
-        title={pageHeroes.contact.title}
-        description={contactPageCopy.intro}
-      />
+      <InteriorHero eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
 
       <Section spacing="lg">
         <Container>
-          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:items-start lg:gap-12">
             <ContactDetailsCard />
-            <div className="space-y-6">
-              <ContactForm />
-              <ContactDetailsStrip />
-            </div>
+            <ContactForm key={intent} intent={intent} submitLabel={copy.submit} />
           </div>
         </Container>
       </Section>

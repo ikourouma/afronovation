@@ -29,7 +29,7 @@ export const portfolioItems: PortfolioItem[] = [
     sector: "Investment Promotion",
     summary:
       "Governed national project registry, tiered investor pathway, ministry workspaces and deal execution, running as a controlled pilot for Zimbabwe.",
-    href: "/#featured-engagement",
+    href: "/platforms#zimbabwe-investment-platform",
     externalUrl: null,
     icon: "trending-up",
     sortOrder: 2,

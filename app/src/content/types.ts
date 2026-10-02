@@ -49,7 +49,7 @@ export type NavItem = {
   description?: string;
 };
 
-export type EnterpriseServiceStatus = "available" | "roadmap";
+export type EnterpriseServiceStatus = "available" | "pilot" | "roadmap";
 
 export type EnterpriseServiceCategorySlug =
   | "travel-mobility"
@@ -65,6 +65,8 @@ export type EnterpriseService = {
   description: string;
   usedBy: string[];
   status: EnterpriseServiceStatus;
+  /** Delivered together with specialist partners (◆ in the portfolio). */
+  deliveredWithPartners?: boolean;
 };
 
 export type EnterpriseServiceCategory = {
@@ -73,7 +75,7 @@ export type EnterpriseServiceCategory = {
   tagline: string;
 };
 
-export type PlatformStatus = "operational" | "flagship" | "upcoming";
+export type PlatformStatus = "operational" | "flagship" | "pilot" | "upcoming";
 
 export type PlatformImpactItem = {
   label: string;

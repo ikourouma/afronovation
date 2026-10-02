@@ -137,24 +137,24 @@ export const platforms: Platform[] = [
       decisionMakers: ["Ambassadors", "Foreign ministry digital transformation leads"],
     },
     scalability:
-      "The same sovereign services layer scales from a single consulate to a full ministry's global mission network, and the underlying identity, document, and communication services extend naturally to broader government digital-services programs - see Civis.",
+      "The same sovereign services layer scales from a single consulate to a full ministry's global mission network, and the underlying identity, document, and communication services extend naturally to broader government digital-services programs - see CivisOS.",
   },
   {
     slug: "civis",
-    name: "Civis",
+    name: "CivisOS",
     tagline: "Turning scattered diaspora data into strategic advantage.",
     summary:
       "A sovereign intelligence platform that enables governments to securely manage diaspora registration, population intelligence, and strategic engagement through a multi-tenant architecture.",
     sector: "Government / Public Sector Intelligence",
-    status: "operational",
+    status: "pilot",
     featured: true,
     externalUrl: null,
     imageKey: "projects/placeholder-07.jpg",
-    imageAlt: "Representative imagery for the Civis sovereign intelligence platform",
+    imageAlt: "Representative imagery for the CivisOS sovereign intelligence platform",
     atAGlance: {
       sector: "Government / Public Sector Intelligence",
       region: "Multi-country, multi-tenant government deployments",
-      status: "Operational",
+      status: "Pilot",
       servicesUsed: ["BridgeVault", "BridgeAI", "BridgeInsight", "BridgeAPI", "BridgeComm", "BridgeAdmin"],
     },
     challenge:
@@ -162,7 +162,7 @@ export const platforms: Platform[] = [
     opportunity:
       "A secure, multi-tenant registration and intelligence platform lets any government stand up its own diaspora program on shared, proven infrastructure, turning scattered diaspora data into a strategic asset for economic and civic engagement.",
     approach:
-      "Civis provides governments with a secure, multi-tenant platform for diaspora registration, population intelligence, and structured engagement campaigns, isolating each government's data while sharing a common, continuously improving intelligence and security foundation.",
+      "CivisOS provides governments with a secure, multi-tenant platform for diaspora registration, population intelligence, and structured engagement campaigns, isolating each government's data while sharing a common, continuously improving intelligence and security foundation.",
     highlights: [
       "Self-service diaspora registration",
       "Population intelligence dashboards by geography and sector",
@@ -192,7 +192,7 @@ export const platforms: Platform[] = [
       decisionMakers: ["Ministries of foreign affairs / diaspora affairs", "National statistics offices"],
     },
     scalability:
-      "The multi-tenant architecture lets any government onboard onto Civis independently, with data isolation guaranteed by design, making it straightforward to expand from a single pilot country to a multi-country diaspora intelligence network.",
+      "The multi-tenant architecture lets any government onboard onto CivisOS independently, with data isolation guaranteed by design, making it straightforward to expand from a single pilot country to a multi-country diaspora intelligence network.",
   },
   {
     slug: "electionos",
@@ -201,7 +201,7 @@ export const platforms: Platform[] = [
     summary:
       "A secure digital governance platform designed to administer transparent, auditable, and policy-driven elections for organizations and institutions.",
     sector: "Governance / Elections",
-    status: "operational",
+    status: "pilot",
     featured: false,
     externalUrl: null,
     imageKey: "projects/placeholder-08.jpg",
@@ -209,7 +209,7 @@ export const platforms: Platform[] = [
     atAGlance: {
       sector: "Governance / Elections",
       region: "Institutional and governmental elections",
-      status: "Operational",
+      status: "Pilot",
       servicesUsed: ["BridgeVault", "BridgeAI", "BridgeAPI", "BridgeComm", "BridgeAdmin"],
     },
     challenge:
@@ -339,7 +339,7 @@ export const platforms: Platform[] = [
     summary:
       "A financial market intelligence platform that provides access to market information, investment insights, and economic intelligence across Africa and global markets.",
     sector: "Financial Markets Intelligence",
-    status: "operational",
+    status: "pilot",
     featured: false,
     externalUrl: null,
     imageKey: "projects/placeholder-11.jpg",
@@ -347,7 +347,7 @@ export const platforms: Platform[] = [
     atAGlance: {
       sector: "Financial Markets Intelligence",
       region: "Africa and global markets",
-      status: "Operational",
+      status: "Pilot",
       servicesUsed: ["BridgeVault", "BridgeAI", "BridgeInsight", "BridgeAPI", "BridgeComm", "BridgeAdmin"],
     },
     challenge:

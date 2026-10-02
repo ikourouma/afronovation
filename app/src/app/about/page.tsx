@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 import { CredentialsStrip } from "@/components/credentials-strip";
 import { CtaSection } from "@/components/cta-section";
+import { ClientLogos } from "@/components/home/client-logos";
 import { InteriorHero } from "@/components/interior-hero";
 import { JsonLd } from "@/components/json-ld";
 import { Container } from "@/components/layout/container";
@@ -12,26 +13,29 @@ import { SectionHeading } from "@/components/layout/section-heading";
 import { TeamMemberCard } from "@/components/team-member-card";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  aboutExtended,
-  aboutSummary,
-  pageHeroes,
-  sectionHeadings,
-  visionaryTeamCopy,
-} from "@/content/site";
-import { methodologies, practiceAreas, teamMembers } from "@/content";
-import { getPracticeAreaIcon } from "@/lib/practice-area-icons";
+  companyFacts,
+  companyMission,
+  methodologies,
+  partnerLogos,
+  portfolioItems,
+  teamMembers,
+  whoWeAre,
+  whoWeServe,
+  whyAfronovation,
+} from "@/content";
 
 export const metadata: Metadata = {
   title: "About",
-  description: aboutSummary,
+  description:
+    "A strategy, technology and digital transformation company founded in 2018, with a presence in the United States, Côte d'Ivoire, Guinea and Sierra Leone.",
 };
+
+const facts = [
+  { value: String(companyFacts.founded), label: "Founded" },
+  { value: String(companyFacts.presence.length), label: "Countries of presence" },
+  { value: String(portfolioItems.length), label: "Mission-specific platforms" },
+  { value: String(teamMembers.length), label: "Senior partners" },
+];
 
 export default function AboutPage() {
   return (
@@ -49,69 +53,85 @@ export default function AboutPage() {
           }}
         />
       ))}
+
       <InteriorHero
-        eyebrow={pageHeroes.about.eyebrow}
-        title={pageHeroes.about.title}
-        description={aboutSummary}
-      />
+        eyebrow="About Afronovation"
+        title="Senior advisory leadership. In-house platform engineering."
+        description="One accountable team that takes institutions from digital ambition to governed, measurable execution."
+      >
+        <Button asChild size="lg" className="h-12 px-6 text-base">
+          <Link href="#team">
+            Meet the leadership
+            <ArrowRight aria-hidden />
+          </Link>
+        </Button>
+      </InteriorHero>
 
-      <Section spacing="lg">
-        <Container className="space-y-8">
-          <SectionHeading title="About Us." align="center" />
-          <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-muted-foreground text-pretty sm:text-lg">
-            {aboutExtended}
-          </p>
-        </Container>
-      </Section>
-
-      <Section spacing="lg" className="bg-muted/20">
-        <Container className="space-y-10">
-          <SectionHeading
-            title={sectionHeadings.capabilities}
-            description="Our integrated practice areas deliver end-to-end transformation."
-            align="center"
-          />
-          <div className="grid gap-6 md:grid-cols-3">
-            {practiceAreas.map((area) => {
-              const Icon = getPracticeAreaIcon(area.slug);
-              return (
-                <Card key={area.slug} className="h-full">
-                  <CardHeader>
-                    <div className="mb-2 flex size-10 items-center justify-center rounded-lg bg-primary/15 text-primary">
-                      <Icon aria-hidden className="size-5" />
-                    </div>
-                    <CardTitle className="capitalize">{area.name}</CardTitle>
-                    <CardDescription className="font-medium text-foreground">
-                      {area.tagline}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-sm leading-relaxed text-muted-foreground">
-                      {area.summary}
-                    </p>
-                    <Button asChild variant="link" className="h-auto p-0">
-                      <Link href={`/services/#${area.slug}`}>
-                        Learn more
-                        <ArrowRight aria-hidden />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
+      <Section spacing="xl">
+        <Container className="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:items-start">
+          <div className="space-y-6">
+            <SectionHeading title="Who we are" />
+            <p className="font-serif text-lg leading-relaxed">{whoWeAre}</p>
+            <p className="font-serif text-lg leading-relaxed text-muted-foreground">{companyMission}</p>
           </div>
+          <dl className="grid grid-cols-2 gap-4">
+            {facts.map((fact, i) => (
+              <div
+                key={fact.label}
+                className="flex flex-col-reverse rounded-md border border-t-4 bg-card p-5"
+                style={{ borderTopColor: i % 2 === 0 ? "#e25c9e" : "#8b6cf0" }}
+              >
+                <dt className="mt-1 text-sm text-muted-foreground">{fact.label}</dt>
+                <dd className="font-heading text-4xl font-bold">{fact.value}</dd>
+              </div>
+            ))}
+            <p className="col-span-2 font-serif text-sm text-muted-foreground">
+              {companyFacts.presence.join(" · ")}
+            </p>
+          </dl>
         </Container>
       </Section>
 
-      <Section spacing="lg" id="team">
+      <section className="theme-navy">
+        <Container className="space-y-10 py-20">
+          <h2 className="flex items-center gap-3 font-heading text-3xl font-bold sm:text-4xl">
+            <span className="heading-marker" aria-hidden />
+            Why Afronovation
+          </h2>
+          <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {whyAfronovation.map((reason, i) => (
+              <li key={reason.title}>
+                <p className="font-heading text-sm font-bold text-gold">{String(i + 1).padStart(2, "0")}</p>
+                <p className="mt-2 font-heading text-xl font-bold">{reason.title}</p>
+                <p className="mt-2 font-serif leading-relaxed text-muted-foreground">{reason.body}</p>
+              </li>
+            ))}
+          </ol>
+        </Container>
+        <div className="rule-gold h-1" aria-hidden />
+      </section>
+
+      <Section spacing="xl">
+        <Container className="space-y-10">
+          <SectionHeading title="Who we serve" />
+          <ul className="grid gap-5 md:grid-cols-2">
+            {whoWeServe.map((segment) => (
+              <li key={segment.title} className="rounded-md border border-l-4 border-l-pink bg-card p-6">
+                <p className="font-heading text-lg font-bold">{segment.title}</p>
+                <p className="mt-2 font-serif leading-relaxed text-muted-foreground">{segment.body}</p>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+
+      <Section id="team" spacing="xl" className="scroll-mt-24 bg-surface">
         <Container className="space-y-10">
           <SectionHeading
-            eyebrow="This Is Our"
-            title={sectionHeadings.visionaryTeam}
-            description={visionaryTeamCopy}
-            align="center"
+            title="Leadership"
+            description="Partners who have led transformation at the African Development Bank, Cisco Systems, state government and international development institutions."
           />
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {teamMembers.map((member) => (
               <TeamMemberCard key={member.slug} member={member} variant="full" />
             ))}
@@ -120,6 +140,7 @@ export default function AboutPage() {
         </Container>
       </Section>
 
+      <ClientLogos logos={partnerLogos} />
       <CtaSection />
     </>
   );

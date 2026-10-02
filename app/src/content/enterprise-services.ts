@@ -94,13 +94,13 @@ export const enterpriseServices: EnterpriseService[] = [
     usedBy: [
       "Bridge55",
       "EmbassyOS",
-      "Civis",
+      "CivisOS",
       "ElectionOS",
       "BridgeX",
       "Souvera Intelligence Terminal",
       "Souvera Markets",
     ],
-    status: "available",
+    status: "pilot",
   },
   {
     slug: "bridgewallet",
@@ -121,6 +121,25 @@ export const enterpriseServices: EnterpriseService[] = [
     status: "available",
   },
   {
+    slug: "bridgetrust",
+    name: "BridgeTrust",
+    category: "identity-trust-security",
+    description:
+      "Trust services - PKI certificates, digital signatures, e-seals and timestamps - that give digital documents legal validity across institutions.",
+    usedBy: ["BridgeX", "EmbassyOS", "Digital Government services"],
+    status: "available",
+    deliveredWithPartners: true,
+  },
+  {
+    slug: "bridgeconsent",
+    name: "BridgeConsent",
+    category: "identity-trust-security",
+    description:
+      "Consent and data-access tracking that lets citizens grant consent and see which institution accessed their data, and why.",
+    usedBy: ["BridgeX", "Digital Government services"],
+    status: "roadmap",
+  },
+  {
     slug: "bridgeidentity",
     name: "BridgeIdentity",
     category: "identity-trust-security",
@@ -139,7 +158,7 @@ export const enterpriseServices: EnterpriseService[] = [
     usedBy: [
       "Bridge55",
       "EmbassyOS",
-      "Civis",
+      "CivisOS",
       "ElectionOS",
       "BridgeX",
       "Souvera Intelligence Terminal",
@@ -153,7 +172,7 @@ export const enterpriseServices: EnterpriseService[] = [
     category: "intelligence-data",
     description:
       "Enterprise operational intelligence service that transforms platform data into actionable insights through reporting, monitoring, and decision support.",
-    usedBy: ["Bridge55", "Civis", "EmbassyOS", "Souvera Intelligence Terminal", "Souvera Markets"],
+    usedBy: ["Bridge55", "CivisOS", "EmbassyOS", "Souvera Intelligence Terminal", "Souvera Markets"],
     status: "available",
   },
   {
@@ -193,6 +212,16 @@ export const enterpriseServices: EnterpriseService[] = [
     usedBy: ["All Afronovation Platforms"],
     status: "available",
   },
+  {
+    slug: "bridgeregistry",
+    name: "BridgeRegistry",
+    category: "platform-operations-integration",
+    description:
+      "Base registries - population, business, land and address - maintained as single sources of truth that every digital service can rely on.",
+    usedBy: ["BridgeX", "Digital Government services"],
+    status: "available",
+    deliveredWithPartners: true,
+  },
   // Commerce & Engagement
   {
     slug: "bridgemarketing",
@@ -229,3 +258,9 @@ export function getServicesBySlugs(slugs: string[]): EnterpriseService[] {
     .map((slug) => getServiceBySlug(slug))
     .filter((service): service is EnterpriseService => Boolean(service));
 }
+
+export const enterpriseServiceStatusLabels = {
+  available: "Available",
+  pilot: "Pilot",
+  roadmap: "Roadmap",
+} as const;

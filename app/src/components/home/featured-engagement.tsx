@@ -8,11 +8,17 @@ import type { FeaturedEngagement as FeaturedEngagementData } from "@/content/typ
 
 const statAccents = ["#e25c9e", "#8b6cf0", "#8b6cf0"];
 
-export function FeaturedEngagement({ engagement }: { engagement: FeaturedEngagementData }) {
+export function FeaturedEngagement({
+  engagement,
+  id = "featured-engagement",
+}: {
+  engagement: FeaturedEngagementData;
+  id?: string;
+}) {
   return (
     <section
-      id="featured-engagement"
-      aria-labelledby="featured-engagement-heading"
+      id={id}
+      aria-labelledby={`${id}-heading`}
       className="theme-navy relative isolate scroll-mt-24 overflow-hidden"
     >
       <Constellation className="-z-10 opacity-60" />
@@ -22,7 +28,7 @@ export function FeaturedEngagement({ engagement }: { engagement: FeaturedEngagem
             {engagement.eyebrow}
           </p>
           <h2
-            id="featured-engagement-heading"
+            id={`${id}-heading`}
             className="mt-4 font-heading text-3xl leading-tight font-bold tracking-tight text-balance sm:text-4xl"
           >
             {engagement.title}

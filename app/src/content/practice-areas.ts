@@ -12,10 +12,11 @@ export const practiceAreas: PracticeArea[] = [
     fullDescription:
       "Afronovation helps organizations deliver complex initiatives with confidence through program management and organizational change consulting. Our experts apply Agile, PROSCI, and PMI best practices to ensure projects stay on track, risks are managed, and people embrace change. We turn strategy into action by aligning stakeholders, streamlining processes, and achieving sustainable results.",
     keyServices: [
-      "program management consulting",
-      "organizational change management",
-      "Agile project delivery",
-      "business transformation leadership",
+      "Enterprise PMO & portfolio delivery",
+      "Organisational change & adoption",
+      "Stakeholder engagement",
+      "Agile coaching & delivery",
+      "Performance tracking & benefits realisation",
     ],
   },
   {
@@ -29,11 +30,11 @@ export const practiceAreas: PracticeArea[] = [
     fullDescription:
       "We design and build scalable, secure, and user-centric platforms that enable organizations to grow and innovate. From custom web and mobile apps to SaaS and enterprise solutions, Afronovation blends modern technology with intuitive design to deliver seamless digital experiences. Our team ensures that every solution is future-ready, integrated, and built for long-term success.",
     keyServices: [
-      "technology consulting",
-      "SaaS platform development",
-      "custom app development",
-      "enterprise software solutions",
-      "UI/UX design services",
+      "SaaS, portal & enterprise platforms",
+      "UI/UX design & prototyping",
+      "Cloud, API & integration",
+      "Web & mobile applications",
+      "Enterprise system modernisation",
     ],
   },
   {
@@ -47,11 +48,11 @@ export const practiceAreas: PracticeArea[] = [
     fullDescription:
       "Afronovation partners with businesses and governments to lead their digital transformation journey. We help modernize operations, optimize processes, and unlock value through cloud migration, data analytics, and IT modernization. By reimagining workflows and customer engagement, we empower organizations to thrive in the digital economy and achieve measurable growth.",
     keyServices: [
-      "digital transformation consulting",
-      "cloud migration services",
-      "IT modernization",
-      "government digitalization",
-      "business process reengineering",
+      "Digital strategy & national roadmaps",
+      "e-Government & process redesign",
+      "Data, analytics & AI enablement",
+      "Cloud migration & modernisation",
+      "Business process reengineering",
     ],
   },
   {

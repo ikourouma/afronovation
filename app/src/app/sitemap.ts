@@ -7,7 +7,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://afronovation.com";
 const staticRoutes = [
   "",
   "/about",
-  "/services",
+  "/solutions",
   "/enterprise-services",
   "/platforms",
   "/insights",

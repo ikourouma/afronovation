@@ -15,24 +15,24 @@ export const megaMenu: MegaMenuSection[] = [
     intro: {
       title: "Solutions",
       body: "Four integrated practices that take institutions from digital ambition to governed, measurable execution.",
-      cta: { label: "All solutions", href: "/services" },
+      cta: { label: "All solutions", href: "/solutions" },
     },
     groups: [
       {
         heading: "Practices",
         links: [
-          { label: "Program & Change Management", href: "/services#program-change-management", description: "Delivery on time and in scope, with adoption that lasts." },
-          { label: "Technology & Platform Development", href: "/services#technology-platform-development", description: "Secure, scalable platforms on a reusable architecture." },
-          { label: "Digital Transformation", href: "/services#digital-transformation", description: "Strategy, operating models and process redesign." },
-          { label: "Cybersecurity & Digital Trust", href: "/services#cybersecurity-digital-trust", description: "Protection and compliance for institutions holding national data." },
+          { label: "Program & Change Management", href: "/solutions#program-change-management", description: "Delivery on time and in scope, with adoption that lasts." },
+          { label: "Technology & Platform Development", href: "/solutions#technology-platform-development", description: "Secure, scalable platforms on a reusable architecture." },
+          { label: "Digital Transformation", href: "/solutions#digital-transformation", description: "Strategy, operating models and process redesign." },
+          { label: "Cybersecurity & Digital Trust", href: "/solutions#cybersecurity-digital-trust", description: "Protection and compliance for institutions holding national data." },
         ],
       },
       {
         heading: "Programmes",
         links: [
-          { label: "Digital Government", href: "/services#digital-government", description: "18 e-Government service domains on one governed platform." },
-          { label: "National Digital Acceleration Program", href: "/services#ndap", description: "A modular, 365-day pathway to platform-enabled execution." },
-          { label: "Advisory Services", href: "/services#advisory", description: "Digital leadership, policy, architecture and financing." },
+          { label: "Digital Government", href: "/solutions#digital-government", description: "18 e-Government service domains on one governed platform." },
+          { label: "National Digital Acceleration Program", href: "/solutions#ndap", description: "A modular, 365-day pathway to platform-enabled execution." },
+          { label: "Advisory Services", href: "/solutions#advisory", description: "Digital leadership, policy, architecture and financing." },
         ],
       },
     ],

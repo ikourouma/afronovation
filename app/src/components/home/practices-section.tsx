@@ -46,7 +46,7 @@ export function PracticesSection({ practices }: { practices: PracticeArea[] }) {
                   ))}
                 </ul>
                 <Link
-                  href={`/services#${practice.slug}`}
+                  href={`/solutions#${practice.slug}`}
                   className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline"
                 >
                   Explore the practice

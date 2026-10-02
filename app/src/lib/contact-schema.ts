@@ -5,7 +5,19 @@ export const interestValues = [
   "saas-platform-development",
   "digital-transformation",
   "government-digitalization",
+  "cybersecurity-digital-trust",
 ] as const;
+
+/** Which call to action brought the visitor to the contact page. */
+export const contactIntentValues = [
+  "briefing",
+  "investor",
+  "partnership",
+  "consultant",
+  "general",
+] as const;
+
+export type ContactIntent = (typeof contactIntentValues)[number];
 
 export const contactMethodValues = ["email", "phone", "text-message"] as const;
 
@@ -41,6 +53,7 @@ export const contactFormSchema = z.object({
   message: z.string().trim().max(5000).optional(),
   consent: z.literal(true),
   website: z.string().max(0).optional(),
+  intent: z.enum(contactIntentValues).optional(),
   ...utmFields,
 });
 

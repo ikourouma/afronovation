@@ -1,7 +1,6 @@
 export * from "./types";
 export * from "./site";
 export * from "./practice-areas";
-export * from "./services";
 export * from "./team";
 export * from "./testimonials";
 export * from "./partners";
@@ -17,3 +16,5 @@ export * from "./hero-slides";
 export * from "./navigation";
 export * from "./portfolio";
 export * from "./social";
+export * from "./solutions";
+export * from "./about";

@@ -1,111 +1,90 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
+import { ArchitectureDiagram } from "@/components/architecture-diagram";
 import { CtaSection } from "@/components/cta-section";
+import { FeaturedEngagement } from "@/components/home/featured-engagement";
 import { InteriorHero } from "@/components/interior-hero";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { SectionHeading } from "@/components/layout/section-heading";
-import { PlatformCard } from "@/components/platform-card";
-import { Badge } from "@/components/ui/badge";
+import { PortfolioCard } from "@/components/portfolio-card";
 import { Button } from "@/components/ui/button";
-import { ctaLabels, navLabels, pageHeroes } from "@/content/site";
-import {
-  futurePlatformsCallout,
-  getFlagshipPlatform,
-  platforms,
-  platformsIntro,
-} from "@/content/platforms";
-import { media } from "@/lib/media";
+import { featuredEngagement, portfolioIntro, portfolioItems } from "@/content/portfolio";
+import { futurePlatformsCallout } from "@/content/platforms";
 
 export const metadata: Metadata = {
   title: "Platforms",
-  description: platformsIntro,
+  description: portfolioIntro,
 };
 
 export default function PlatformsPage() {
-  const flagship = getFlagshipPlatform();
-  const rest = platforms.filter((platform) => platform.slug !== flagship.slug);
-
   return (
     <>
       <InteriorHero
-        eyebrow={pageHeroes.platforms.eyebrow}
-        title={pageHeroes.platforms.title}
-        description={platformsIntro}
-      />
-
-      <Section spacing="lg">
-        <Container className="space-y-10">
-          <Link
-            href={`/platforms/${flagship.slug}`}
-            className="group block overflow-hidden rounded-2xl border border-primary/30 bg-radial-glow"
-          >
-            <div className="grid gap-0 lg:grid-cols-2">
-              <div className="relative aspect-16/10 lg:aspect-auto">
-                <Image
-                  src={media(flagship.imageKey)}
-                  alt={flagship.imageAlt}
-                  fill
-                  priority
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-              <div className="flex flex-col justify-center gap-4 p-6 sm:p-10">
-                <Badge className="w-fit bg-primary text-primary-foreground">
-                  {navLabels.flagshipPlatform}
-                </Badge>
-                <h2 className="font-heading text-2xl font-semibold sm:text-3xl">
-                  {flagship.name}
-                </h2>
-                <p className="text-muted-foreground">{flagship.tagline}</p>
-                <p className="leading-relaxed text-muted-foreground">
-                  {flagship.summary}
-                </p>
-                <span className="inline-flex items-center gap-1.5 text-sm font-medium text-primary">
-                  View case study
-                  <ArrowRight aria-hidden className="size-4" />
-                  {flagship.externalUrl ? (
-                    <>
-                      <span className="mx-1 text-muted-foreground">·</span>
-                      {ctaLabels.visitLiveSite}
-                      <ExternalLink className="size-3.5" aria-hidden />
-                    </>
-                  ) : null}
-                </span>
-              </div>
-            </div>
+        eyebrow="Mission-specific platforms"
+        title="Nine platforms. One proven architecture."
+        description={portfolioIntro}
+      >
+        <Button asChild size="lg" className="h-12 px-6 text-base">
+          <Link href="/contact?intent=briefing">
+            Book a Briefing
+            <ArrowRight aria-hidden />
           </Link>
+        </Button>
+        <Button
+          asChild
+          size="lg"
+          variant="outline"
+          className="h-12 border-white/30 bg-transparent px-6 text-base hover:bg-white/10"
+        >
+          <Link href="/enterprise-services">The services behind them</Link>
+        </Button>
+      </InteriorHero>
 
-          <SectionHeading
-            eyebrow="More Platforms"
-            title="Every mission, one architecture."
-            align="left"
-          />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {rest.map((platform) => (
-              <PlatformCard key={platform.slug} platform={platform} />
+      <Section spacing="xl">
+        <Container className="space-y-12">
+          <SectionHeading title="What we have built" />
+          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {portfolioItems.map((item) => (
+              <li
+                key={item.slug}
+                // The Zimbabwe anchor belongs to its full engagement band below.
+                id={item.slug === "zimbabwe-investment-platform" ? undefined : item.slug}
+                className="scroll-mt-28"
+              >
+                <PortfolioCard item={item} />
+              </li>
             ))}
-
-            <div className="flex h-full flex-col justify-between rounded-xl border border-dashed border-border/70 bg-card/40 p-6">
-              <div className="space-y-2">
-                <p className="font-heading text-lg font-semibold">
-                  {futurePlatformsCallout.name}
-                </p>
-                <p className="text-sm leading-relaxed text-muted-foreground">
+            <li className="flex flex-col justify-between rounded-md border border-dashed p-6">
+              <div>
+                <h3 className="font-heading text-lg font-bold">{futurePlatformsCallout.name}</h3>
+                <p className="mt-2 font-serif leading-relaxed text-muted-foreground">
                   {futurePlatformsCallout.tagline}
                 </p>
               </div>
-              <Button asChild variant="outline" className="mt-6 w-fit">
-                <Link href={futurePlatformsCallout.ctaHref}>
-                  {futurePlatformsCallout.ctaLabel}
-                </Link>
-              </Button>
-            </div>
-          </div>
+              <Link
+                href="/contact?intent=briefing"
+                className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline"
+              >
+                {futurePlatformsCallout.ctaLabel}
+                <ArrowRight className="size-4" aria-hidden />
+              </Link>
+            </li>
+          </ul>
+        </Container>
+      </Section>
+
+      <FeaturedEngagement engagement={featuredEngagement} id="zimbabwe-investment-platform" />
+
+      <Section spacing="xl">
+        <Container className="space-y-10">
+          <SectionHeading
+            title="One proven architecture"
+            description="Every platform is composed from the same enterprise digital services, so each new mission launches faster and with less risk."
+          />
+          <ArchitectureDiagram />
         </Container>
       </Section>
 

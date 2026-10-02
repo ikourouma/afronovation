@@ -12,7 +12,7 @@ export const heroSlides: HeroSlide[] = [
       "We help governments and enterprises across the U.S. and Africa turn strategy into working digital systems.",
     body: "One accountable team, from first briefing to lasting adoption.",
     primaryCta: { label: "Book a Briefing", href: "/contact?intent=briefing" },
-    secondaryCta: { label: "Our solutions", href: "/services" },
+    secondaryCta: { label: "Our solutions", href: "/solutions" },
     ctaNote: "30-minute session · No obligation",
     imageKey: null,
     imageAlt: null,

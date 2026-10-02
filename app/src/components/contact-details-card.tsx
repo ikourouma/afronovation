@@ -1,76 +1,42 @@
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Globe2, Mail, MapPin, Phone } from "lucide-react";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { SocialLinks } from "@/components/social-links";
-import { contact, contactPageCopy } from "@/content/site";
+import { companyFacts, contact, contactPageCopy } from "@/content/site";
+
+const phoneHref = `tel:${contact.phone.replace(/[^\d+]/g, "")}`;
 
 export function ContactDetailsCard() {
-  return (
-    <Card className="h-full">
-      <CardHeader>
-        <CardTitle>{contactPageCopy.contactUs}</CardTitle>
-        <CardDescription>{contactPageCopy.intro}</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-5">
-        <address className="space-y-4 not-italic">
-          <div className="flex gap-3">
-            <MapPin
-              className="mt-0.5 size-5 shrink-0 text-accent"
-              aria-hidden
-            />
-            <span>{contact.address}</span>
-          </div>
-          <div className="flex gap-3">
-            <Mail className="mt-0.5 size-5 shrink-0 text-accent" aria-hidden />
-            <a
-              href={`mailto:${contact.email}`}
-              className="underline-offset-4 hover:text-accent hover:underline"
-            >
-              {contact.email}
-            </a>
-          </div>
-          <div className="flex gap-3">
-            <Phone className="mt-0.5 size-5 shrink-0 text-accent" aria-hidden />
-            <a
-              href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`}
-              className="underline-offset-4 hover:text-accent hover:underline"
-            >
-              {contact.phone}
-            </a>
-          </div>
-        </address>
-        <SocialLinks heading="Follow us" />
-      </CardContent>
-    </Card>
-  );
-}
+  const rows = [
+    { icon: MapPin, label: "Headquarters", value: contact.address, href: null },
+    { icon: Mail, label: "Email", value: contact.email, href: `mailto:${contact.email}` },
+    { icon: Phone, label: "Phone", value: contact.phone, href: phoneHref },
+    { icon: Globe2, label: "Presence", value: companyFacts.presence.join(" · "), href: null },
+  ];
 
-export function ContactDetailsStrip() {
   return (
-    <div className="flex flex-col gap-3 rounded-xl border bg-muted/40 px-4 py-4 text-sm sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-      <p className="font-medium">{contactPageCopy.preferDirect}</p>
-      <div className="flex flex-wrap gap-4">
-        <a
-          href={`mailto:${contact.email}`}
-          className="inline-flex items-center gap-2 underline-offset-4 hover:text-accent hover:underline"
-        >
-          <Mail className="size-4" aria-hidden />
-          {contact.email}
-        </a>
-        <a
-          href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`}
-          className="inline-flex items-center gap-2 underline-offset-4 hover:text-accent hover:underline"
-        >
-          <Phone className="size-4" aria-hidden />
-          {contact.phone}
-        </a>
-      </div>
-    </div>
+    <aside className="theme-navy h-full rounded-md p-8">
+      <h2 className="font-heading text-2xl font-bold">{contactPageCopy.contactUs}</h2>
+      <p className="mt-2 font-serif text-muted-foreground">{contactPageCopy.intro}</p>
+      <address className="mt-8 space-y-6 not-italic">
+        {rows.map(({ icon: Icon, label, value, href }) => (
+          <div key={label} className="flex gap-4">
+            <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white/10">
+              <Icon className="size-4" aria-hidden />
+            </span>
+            <div>
+              <p className="text-xs text-muted-foreground">{label}</p>
+              {href ? (
+                <a href={href} className="font-semibold underline-offset-4 hover:underline">
+                  {value}
+                </a>
+              ) : (
+                <p className="font-semibold">{value}</p>
+              )}
+            </div>
+          </div>
+        ))}
+      </address>
+      <SocialLinks heading="Follow us" tone="navy" className="mt-8" />
+    </aside>
   );
 }

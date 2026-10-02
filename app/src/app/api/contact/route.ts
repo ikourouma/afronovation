@@ -4,6 +4,7 @@ import path from "node:path";
 import { contactSubmissions } from "@/db/schema";
 import { getDb } from "@/db";
 import {
+  contactIntents,
   contactInterestOptions,
   contactMethodOptions,
 } from "@/content/contact-form";
@@ -68,6 +69,7 @@ function buildEmailBody(submission: Submission): string {
   return [
     "New website lead submission",
     "",
+    `Request: ${contactIntents[data.intent ?? "general"].label}`,
     `Name: ${data.fullName}`,
     `Email: ${data.email}`,
     `Phone: ${data.phone}`,
@@ -84,7 +86,8 @@ function buildEmailSubject(submission: Submission): string {
     const platform = getPlatformBySlug(submission.data.platformSlug);
     return `New demo request (${platform?.name ?? submission.data.platformSlug}): ${submission.data.fullName}`;
   }
-  return `New website lead: ${submission.data.fullName}`;
+  const intent = contactIntents[submission.data.intent ?? "general"];
+  return `New website lead (${intent.label}): ${submission.data.fullName}`;
 }
 
 async function saveLeadLocally(submission: Submission) {
@@ -158,8 +161,12 @@ export async function POST(request: Request) {
           submission.kind === "demo-request"
             ? submission.data.organizationType
             : null,
+        // Demo requests store their inquiry type; contact-page leads store
+        // which call to action brought them (briefing, investor, ...).
         inquiryType:
-          submission.kind === "demo-request" ? submission.data.inquiryType : null,
+          submission.kind === "demo-request"
+            ? submission.data.inquiryType
+            : (submission.data.intent ?? "general"),
         utmSource: data.utmSource || null,
         utmMedium: data.utmMedium || null,
         utmCampaign: data.utmCampaign || null,

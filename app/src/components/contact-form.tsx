@@ -29,6 +29,7 @@ import {
 import {
   contactFormSchema,
   type ContactFormValues,
+  type ContactIntent,
 } from "@/lib/contact-schema";
 import { cn } from "@/lib/utils";
 
@@ -44,13 +45,19 @@ const defaultValues: Partial<ContactFormValues> = {
   website: "",
 };
 
-export function ContactForm() {
+export function ContactForm({
+  intent = "general",
+  submitLabel = contactFormMessages.submit,
+}: {
+  intent?: ContactIntent;
+  submitLabel?: string;
+}) {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
-    defaultValues,
+    defaultValues: { ...defaultValues, intent },
     mode: "onTouched",
   });
 
@@ -98,7 +105,7 @@ export function ContactForm() {
       toast.success(contactFormMessages.successTitle, {
         description: contactFormMessages.successDescription,
       });
-      reset(defaultValues);
+      reset({ ...defaultValues, intent });
       setStep(1);
     } catch {
       toast.error("Unable to send message", {
@@ -397,7 +404,7 @@ export function ContactForm() {
                   {contactFormMessages.submitting}
                 </>
               ) : (
-                contactFormMessages.submit
+                submitLabel
               )}
             </Button>
           </div>
