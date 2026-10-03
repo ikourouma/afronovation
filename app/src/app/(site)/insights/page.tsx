@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 import { Constellation } from "@/components/brand/constellation";
 import { ArticleCard } from "@/components/article-card";
+import { GatedDownload } from "@/components/gated-download";
 import { CtaSection } from "@/components/cta-section";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
@@ -30,7 +31,12 @@ const categoryIntros: Record<ArticleCategory, string> = {
 };
 
 export default async function InsightsPage() {
-  const published = filterPublishedArticles(await getCollection("articles"));
+  const [allArticles, allDownloads] = await Promise.all([
+    getCollection("articles"),
+    getCollection("downloads"),
+  ]);
+  const published = filterPublishedArticles(allArticles);
+  const downloads = allDownloads.filter((resource) => resource.active);
   return (
     <>
       <section className="theme-navy relative isolate overflow-hidden">
@@ -77,6 +83,21 @@ export default async function InsightsPage() {
           >
             <Container className="space-y-8">
               <SectionHeading title={articleCategoryLabels[category]} description={categoryIntros[category]} />
+              {category === "reports" && downloads.length > 0 ? (
+                <div className="space-y-5">
+                  {downloads.map((resource) => (
+                    <GatedDownload
+                      key={resource.slug}
+                      resource={{
+                        slug: resource.slug,
+                        title: resource.title,
+                        summary: resource.summary,
+                        format: resource.format,
+                      }}
+                    />
+                  ))}
+                </div>
+              ) : null}
               {items.length > 0 ? (
                 <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
                   {items.map((article) => (
@@ -85,7 +106,7 @@ export default async function InsightsPage() {
                     </li>
                   ))}
                 </ul>
-              ) : (
+              ) : category === "reports" && downloads.length > 0 ? null : (
                 <p className="font-serif text-muted-foreground">
                   Coming soon.{" "}
                   <Link href="#newsletter" className="font-semibold text-primary underline-offset-4 hover:underline">

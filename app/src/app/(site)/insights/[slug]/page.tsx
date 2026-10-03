@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Download } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 import { Constellation } from "@/components/brand/constellation";
 import { CtaSection } from "@/components/cta-section";
+import { GatedDownload } from "@/components/gated-download";
 import { Container } from "@/components/layout/container";
 import { ShareButtons } from "@/components/share-buttons";
-import { Button } from "@/components/ui/button";
 import {
   articleCategoryLabels,
   filterPublishedArticles,
@@ -48,6 +48,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   if (!article) notFound();
 
   const url = `${siteUrl}/insights/${article.slug}`;
+  const download = article.downloadSlug
+    ? (await getCollection("downloads")).find((item) => item.slug === article.downloadSlug && item.active)
+    : undefined;
 
   return (
     <>
@@ -89,19 +92,23 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.body}</ReactMarkdown>
           </div>
 
-          {article.downloadUrl ? (
-            <Button asChild size="lg" className="mt-10 h-12 px-6 text-base">
-              <a href={article.downloadUrl} target="_blank" rel="noopener noreferrer">
-                <Download aria-hidden />
-                Download
-              </a>
-            </Button>
-          ) : null}
 
           <div className="mt-12 border-t pt-8">
             <ShareButtons url={url} title={article.title} />
           </div>
         </Container>
+        {download ? (
+          <Container className="pb-16">
+            <GatedDownload
+              resource={{
+                slug: download.slug,
+                title: download.title,
+                summary: download.summary,
+                format: download.format,
+              }}
+            />
+          </Container>
+        ) : null}
       </section>
 
       <CtaSection />

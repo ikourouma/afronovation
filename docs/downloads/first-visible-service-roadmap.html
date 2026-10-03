@@ -1,0 +1,163 @@
+<!doctype html><html><head><meta charset="utf-8">
+<!-- Source of app/public/media-staging/downloads/first-visible-service-roadmap.pdf.
+     Edit, then print to PDF (A4, background graphics on). -->
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=block" rel="stylesheet">
+<style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --ink:#071e36; --navy:#02132c; --navy2:#0a2247; --pink:#e25c9e; --violet:#6d52d8; --gold:#f1a13d; --muted:#4a5a70; --surface:#f5f6fa; --line:rgba(7,30,54,.12); }
+body { font-family: "Source Serif 4", Georgia, serif; color: var(--ink); font-size: 10.2pt; line-height: 1.45; }
+.page { width: 210mm; height: 297mm; position: relative; overflow: hidden; page-break-after: always; display:flex; flex-direction:column; }
+.page:last-child { page-break-after: auto; }
+.band { flex: none; background: var(--navy); color: #fff; padding: 11mm 15mm 9mm; position: relative; overflow: hidden; }
+.band .arc { position:absolute; right:-40mm; top:-55mm; width:120mm; height:120mm; border-radius:50%; border:1.2px solid; border-color: var(--pink) var(--violet) var(--violet) var(--pink); opacity:.55; }
+.band svg.net { position:absolute; right:8mm; top:6mm; width:95mm; opacity:.35; }
+.rule { flex: none; height: 2.2mm; background: linear-gradient(90deg,#f1a13d,#eacb64 60%,#f1a13d); }
+.logo { height: 10mm; position: relative; }
+.kicker { font-family: Urbanist, sans-serif; font-weight: 700; letter-spacing: .2em; font-size: 8pt; text-transform: uppercase; color: #f3a9cf; margin-top: 7mm; position:relative; }
+h1 { font-family: Urbanist, sans-serif; font-weight: 800; font-size: 25pt; line-height: 1.08; margin-top: 2.5mm; position:relative; }
+.lead { font-size: 11pt; color: #c9d4ea; margin-top: 3.5mm; max-width: 150mm; position:relative; }
+.body { padding: 7mm 15mm 0; flex:1; min-height:0; }
+h2 { font-family: Urbanist, sans-serif; font-weight: 700; font-size: 13.5pt; display:flex; align-items:center; gap:3mm; margin: 0 0 3mm; }
+h2::before { content:""; width: 9mm; height: 1.4mm; border-radius: 1mm; background: linear-gradient(90deg,var(--pink),var(--violet)); }
+h3 { font-family: Urbanist, sans-serif; font-weight: 700; font-size: 10.5pt; }
+.muted { color: var(--muted); }
+.section { margin-bottom: 4.5mm; }
+table.score { width: 100%; border-collapse: collapse; font-size: 9.4pt; }
+table.score th { font-family: Urbanist, sans-serif; text-align: left; font-size: 8pt; color: var(--muted); font-weight:700; padding: 1.6mm 2mm; border-bottom: 1px solid var(--line); }
+table.score td { padding: 1.7mm 2mm; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.score td.c { font-family: Urbanist, sans-serif; font-weight: 700; width: 46mm; }
+table.score td.box { width: 30mm; white-space: nowrap; text-align:center; color: var(--muted); font-family: Urbanist, sans-serif; letter-spacing: 1.2mm; }
+.grid2 { display:grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+.grid3 { display:grid; grid-template-columns: repeat(3,1fr); gap: 2.6mm; margin-bottom: 4mm; }
+.card { border: 1px solid var(--line); border-radius: 1.5mm; padding: 2.6mm 3.5mm; background:#fff; }
+.card.top { border-top: 1mm solid var(--violet); }
+.chip { display:inline-block; font-family: Urbanist, sans-serif; font-weight:600; font-size: 8.6pt; border:1px solid var(--line); border-left: 1mm solid var(--violet); border-radius: 1mm; padding: 1mm 2.4mm; margin: 0 1.6mm 1.8mm 0; }
+.tip { background: #e6f4ee; color:#185c3d; border: 1px dashed #2f9e6b; border-radius: 1.5mm; padding: 2.8mm 4mm; font-family: Urbanist, sans-serif; font-weight: 600; font-size: 9.2pt; }
+.phases { display:grid; grid-template-columns: repeat(4,1fr); gap: 1.6mm; }
+.phase { color:#fff; padding: 4mm 6mm 4mm 4mm; clip-path: polygon(0 0, calc(100% - 4mm) 0, 100% 50%, calc(100% - 4mm) 100%, 0 100%); }
+.phase .d { font-family: Urbanist, sans-serif; font-weight: 800; color: #f6c86a; font-size: 8.4pt; }
+.phase .t { font-family: Urbanist, sans-serif; font-weight: 700; font-size: 11.5pt; margin: .8mm 0 1.6mm; }
+.phase ul { list-style: none; font-size: 8.7pt; color: rgba(255,255,255,.86); }
+.phase li { margin-bottom: .9mm; padding-left: 3mm; position:relative; }
+.phase li::before { content:"•"; position:absolute; left:0; color:#f6c86a; }
+ul.check { list-style:none; }
+ul.check li { padding-left: 5.5mm; position: relative; margin-bottom: 1.6mm; }
+ul.check li::before { content:""; position:absolute; left:0; top:1.4mm; width:2.6mm; height:2.6mm; border-radius: .6mm; border: 1.2px solid var(--violet); }
+.kpi { display:flex; gap: 2.5mm; align-items:flex-start; margin-bottom: 1.6mm; }
+.kpi b { font-family: Urbanist, sans-serif; display:block; font-size: 9.6pt; }
+.kpi i { color: var(--muted); font-size: 8.8pt; font-style: normal; }
+.kpi .dot { flex:none; width:2.4mm; height:2.4mm; border-radius:50%; background: var(--pink); margin-top:1.5mm; }
+.cta { flex: none; background: var(--navy); color:#fff; margin: 0 15mm 0; border-radius: 2mm; padding: 6mm 7mm; display:flex; justify-content: space-between; align-items:center; gap: 6mm; position: relative; overflow:hidden; }
+.cta::before { content:""; position:absolute; inset:0 0 auto 0; height:1.2mm; background: linear-gradient(90deg,var(--pink),var(--violet)); }
+.cta h3 { font-size: 14pt; }
+.cta p { color:#c9d4ea; font-size: 9.6pt; margin-top: 1.2mm; }
+.btn { flex:none; background: #5b41c9; color:#fff; font-family: Urbanist, sans-serif; font-weight:700; border-radius: 1.5mm; padding: 3mm 5mm; font-size: 10pt; text-decoration:none; }
+.foot { flex: none; padding: 5mm 15mm 7mm; display:flex; justify-content: space-between; font-family: Urbanist, sans-serif; font-size: 7.8pt; color: var(--muted); }
+.n { font-family: Urbanist, sans-serif; font-weight: 800; color: var(--violet); }
+</style></head><body>
+
+<section class="page">
+  <div class="band">
+    <div class="arc"></div>
+    <svg class="net" viewBox="0 0 400 160"><g stroke="#8fa3c7" stroke-width="1"><line x1="20" y1="30" x2="90" y2="10"/><line x1="90" y1="10" x2="160" y2="60"/><line x1="160" y1="60" x2="240" y2="20"/><line x1="240" y1="20" x2="320" y2="70"/><line x1="160" y1="60" x2="200" y2="130"/><line x1="200" y1="130" x2="300" y2="140"/><line x1="320" y1="70" x2="300" y2="140"/><line x1="320" y1="70" x2="390" y2="30"/></g><g fill="#c9d4ea"><circle cx="20" cy="30" r="3"/><circle cx="90" cy="10" r="3"/><circle cx="160" cy="60" r="3"/><circle cx="240" cy="20" r="3"/><circle cx="320" cy="70" r="3"/><circle cx="200" cy="130" r="3"/><circle cx="300" cy="140" r="3"/><circle cx="390" cy="30" r="3"/></g></svg>
+    <img class="logo" src="../../app/public/media-staging/brand/logo-full.png" alt="Afronovation">
+    <p class="kicker">Digital government roadmap</p>
+    <h1>First Visible Service:<br>a 90-day roadmap</h1>
+    <p class="lead">Think big, start small: deliver one high-demand service end to end, measure the results, then scale.</p>
+  </div>
+  <div class="rule"></div>
+
+  <div class="body">
+    <div class="section">
+      <h2>Step 1 · Choose the right first service</h2>
+      <p class="muted" style="margin-bottom:2.5mm">Score each candidate from 1 (low) to 5 (high). Start with the highest total that has a named owner.</p>
+      <table class="score">
+        <tr><th>Criterion</th><th>What to ask</th><th>Score</th></tr>
+        <tr><td class="c">Citizen demand</td><td>How many people or businesses use this service each month?</td><td class="box">1 2 3 4 5</td></tr>
+        <tr><td class="c">Pain today</td><td>How long are queues, delays and repeat visits right now?</td><td class="box">1 2 3 4 5</td></tr>
+        <tr><td class="c">Clear owner and mandate</td><td>Is there one leader with authority to change the process?</td><td class="box">1 2 3 4 5</td></tr>
+        <tr><td class="c">Data readiness</td><td>Are the records it needs available and reliable?</td><td class="box">1 2 3 4 5</td></tr>
+        <tr><td class="c">Revenue or savings</td><td>Will it collect fees faster or reduce cost per transaction?</td><td class="box">1 2 3 4 5</td></tr>
+        <tr><td class="c">Visibility</td><td>Will citizens, leaders and funders notice?</td><td class="box">1 2 3 4 5</td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Strong first candidates</h2>
+      <div>
+        <span class="chip">Business registration</span><span class="chip">Permits and licences</span><span class="chip">Farmer and subsidy registration</span><span class="chip">e-Visa and consular appointments</span><span class="chip">Tax filing and payment</span><span class="chip">Civil records (birth, marriage)</span><span class="chip">Investment project registry</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Build these foundations once, reuse them everywhere</h2>
+      <div class="grid3">
+        <div class="card top"><h3>Identity and roles</h3><p class="muted">One account for citizens and officials.</p></div>
+        <div class="card top"><h3>Payments</h3><p class="muted">Online fees, reconciled automatically.</p></div>
+        <div class="card top"><h3>Document vault</h3><p class="muted">Secure uploads and e-signatures.</p></div>
+        <div class="card top"><h3>Audit trail</h3><p class="muted">Who did what, and when.</p></div>
+        <div class="card top"><h3>Data exchange</h3><p class="muted">Citizens never resubmit data.</p></div>
+        <div class="card top"><h3>Assisted channels</h3><p class="muted">Agents and SMS for everyone.</p></div>
+      </div>
+    </div>
+    <p class="tip">The first service is not a one-off project: everything built for it becomes the platform for the next ten.</p>
+  </div>
+  <div class="foot"><span>Afronovation, Inc. · First Visible Service roadmap</span><span>afronovation.com · 1 / 2</span></div>
+</section>
+
+<section class="page">
+  <div class="band" style="padding-bottom:8mm">
+    <div class="arc"></div>
+    <img class="logo" src="../../app/public/media-staging/brand/logo-full.png" alt="Afronovation">
+    <p class="kicker">Step 2 · Deliver in 90 days</p>
+    <h1 style="font-size:21pt">From selection to a live service</h1>
+  </div>
+  <div class="rule"></div>
+
+  <div class="body">
+    <div class="section">
+      <div class="phases">
+        <div class="phase" style="background:#071e36"><div class="d">Days 1–15</div><div class="t">Align</div><ul><li>Name the executive sponsor and delivery lead</li><li>Agree success measures</li><li>Record today's baseline</li></ul></div>
+        <div class="phase" style="background:#1b2f63"><div class="d">Days 16–45</div><div class="t">Map and configure</div><ul><li>Map the journey with the people who run it</li><li>Remove duplicate steps</li><li>Configure on shared foundations</li></ul></div>
+        <div class="phase" style="background:#3c3a8f"><div class="d">Days 46–75</div><div class="t">Pilot</div><ul><li>One agency, real users</li><li>Train staff and assisted channels</li><li>Fix friction weekly</li></ul></div>
+        <div class="phase" style="background:#6a4fc4"><div class="d">Days 76–90</div><div class="t">Go live and report</div><ul><li>Launch with support</li><li>Publish the results</li><li>Choose the next services</li></ul></div>
+      </div>
+      <p class="tip" style="margin-top:3mm">Change management, training and knowledge transfer run through every phase, so your team can operate and extend the service.</p>
+    </div>
+
+    <div class="grid2 section">
+      <div>
+        <h2>Measure what wins the next budget</h2>
+        <div class="kpi"><span class="dot"></span><span><b>Processing time</b><i>Days from application to decision, before and after.</i></span></div>
+        <div class="kpi"><span class="dot"></span><span><b>Cost per transaction</b><i>Staff time, paper and visits saved per application.</i></span></div>
+        <div class="kpi"><span class="dot"></span><span><b>Adoption</b><i>Share of applications completed online or with assistance.</i></span></div>
+        <div class="kpi"><span class="dot"></span><span><b>Revenue collected</b><i>Fees received on time, reconciled automatically.</i></span></div>
+        <div class="kpi"><span class="dot"></span><span><b>Citizen satisfaction</b><i>A short rating after every completed service.</i></span></div>
+      </div>
+      <div>
+        <h2>Governance checklist</h2>
+        <ul class="check">
+          <li>An executive sponsor who unblocks decisions</li>
+          <li>One accountable delivery lead and team</li>
+          <li>Data protection and national data sovereignty agreed in writing</li>
+          <li>A training and knowledge-transfer plan for local staff</li>
+          <li>Continuity arrangements agreed at the outset</li>
+          <li>A public results report at day 90</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>After day 90: scale with confidence</h2>
+      <p>Each new service becomes a configuration, not a new procurement. Our 365-day <b>National Digital Acceleration Program</b> extends it across ministries.</p>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div><h3>Ready to choose your first service?</h3><p>Book a 30-minute executive briefing with our team. No obligation.</p></div>
+    <a class="btn" href="https://afronovation.com/contact?intent=briefing">Book a Briefing</a>
+  </div>
+  <div class="foot"><span>hello@afronovation.com · 1-844-664-4247 · United States · Côte d'Ivoire · Guinea · Sierra Leone</span><span>afronovation.com · 2 / 2</span></div>
+</section>
+</body></html>

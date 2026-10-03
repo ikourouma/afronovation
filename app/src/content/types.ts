@@ -288,9 +288,21 @@ export type Article = {
   author: string;
   /** ISO date (YYYY-MM-DD). */
   publishedAt: string;
-  /** Optional file link for reports and downloads. */
-  downloadUrl: string | null;
+  /** Gated download offered at the end of the article (resource slug). */
+  downloadSlug: string | null;
   published: boolean;
+};
+
+/** Email-gated resource (lead magnet), e.g. a roadmap or the portfolio. */
+export type DownloadResource = {
+  slug: string;
+  title: string;
+  summary: string;
+  /** Short label such as "PDF · 2 pages". */
+  format: string;
+  /** Media key or URL of the file. */
+  fileKey: string;
+  active: boolean;
 };
 
 /** Mega-menu promo card, attached to a top-level menu by id. */

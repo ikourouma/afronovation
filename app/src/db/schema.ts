@@ -13,7 +13,8 @@ export const contactSubmissions = pgTable("contact_submissions", {
   id: uuid("id").defaultRandom().primaryKey(),
   fullName: text("full_name").notNull(),
   email: text("email").notNull(),
-  phone: text("phone").notNull(),
+  // Optional: download requests do not ask for a phone number.
+  phone: text("phone"),
   company: text("company"),
   // Nullable: demo-request submissions (see platformSlug below) don't collect these.
   interests: text("interests").array(),

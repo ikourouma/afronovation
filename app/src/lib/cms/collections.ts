@@ -1,6 +1,7 @@
 import { announcements } from "@/content/announcements";
 import { articleCategoryLabels, articles } from "@/content/articles";
 import { audienceSegments } from "@/content/audiences";
+import { downloadResources } from "@/content/downloads";
 import { enterpriseServiceCategories, enterpriseServices } from "@/content/enterprise-services";
 import { headlineStats, heroSlides } from "@/content/hero-slides";
 import { menuFeatures } from "@/content/menu-features";
@@ -18,6 +19,7 @@ import type {
   Article,
   AudienceSegment,
   ContactDetails,
+  DownloadResource,
   EnterpriseService,
   FeaturedEngagement,
   HeroSlide,
@@ -357,12 +359,35 @@ export const collections = [
       { name: "coverImageAlt", label: "Cover image description", type: "text", nullable: true },
       { name: "author", label: "Author", type: "text", required: true },
       { name: "publishedAt", label: "Publication date", type: "date", required: true },
-      { name: "downloadUrl", label: "Download link (reports)", type: "url", nullable: true },
+      {
+        name: "downloadSlug",
+        label: "Gated download (optional)",
+        type: "text",
+        nullable: true,
+        help: "Identifier of a resource from 'Downloads', e.g. first-visible-service-roadmap. Offered at the end of the article in exchange for contact details.",
+      },
       { name: "published", label: "Published", type: "boolean" },
     ],
     defaults: () => articles,
     itemLabel: (item) => item.title,
     itemStatus: (item) => yesNo(item.published, "Draft"),
+  }),
+  define<DownloadResource>({
+    key: "downloads",
+    label: "Downloads",
+    description: "Email-gated resources (roadmaps, portfolio). Every download request becomes a lead.",
+    group: "Insights",
+    fields: [
+      { name: "slug", label: "Identifier", type: "text", required: true, help: "Lowercase words separated by hyphens. Articles refer to this." },
+      { name: "title", label: "Title", type: "text", required: true },
+      { name: "summary", label: "Description", type: "textarea", required: true, maxLength: 300 },
+      { name: "format", label: "Format", type: "text", required: true, help: "e.g. PDF · 2 pages" },
+      { name: "fileKey", label: "File (PDF)", type: "image", required: true, help: "Upload the PDF." },
+      { name: "active", label: "Available on the site", type: "boolean" },
+    ],
+    defaults: () => downloadResources,
+    itemLabel: (item) => item.title,
+    itemStatus: (item) => yesNo(item.active, "Hidden"),
   }),
   define<MenuFeature>({
     key: "menuFeatures",
@@ -443,6 +468,7 @@ export type CollectionKey =
   | "practices"
   | "team"
   | "articles"
+  | "downloads"
   | "menuFeatures"
   | "socialAccounts"
   | "contactDetails";
@@ -462,6 +488,7 @@ export type CollectionItemMap = {
   practices: PracticeArea;
   team: TeamMember;
   articles: Article;
+  downloads: DownloadResource;
   menuFeatures: MenuFeature;
   socialAccounts: SocialAccount;
   contactDetails: ContactDetails;

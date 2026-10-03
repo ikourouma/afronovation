@@ -13,6 +13,7 @@ export const metadata = { title: "Leads" };
 
 function requestLabel(source: string, inquiryType: string | null) {
   if (source === "demo-request") return "Platform demo";
+  if (source === "download") return `Download: ${inquiryType ?? "resource"}`;
   return inquiryType && inquiryType in contactIntents
     ? contactIntents[inquiryType as keyof typeof contactIntents].label
     : "General enquiry";
@@ -53,7 +54,8 @@ export default async function LeadsPage() {
                     {lead.company ? <span className="font-normal text-muted-foreground"> · {lead.company}</span> : null}
                   </p>
                   <p className="text-sm">
-                    <a href={`mailto:${lead.email}`} className="text-primary hover:underline">{lead.email}</a> · {lead.phone}
+                    <a href={`mailto:${lead.email}`} className="text-primary hover:underline">{lead.email}</a>
+                    {lead.phone ? ` · ${lead.phone}` : ""}
                   </p>
                 </div>
                 <LeadStatusSelect leadId={lead.id} status={lead.status} />
