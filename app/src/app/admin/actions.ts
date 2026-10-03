@@ -9,7 +9,7 @@ import { and, count, eq, ne } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 import { getDb } from "@/db";
-import { contactSubmissions, user } from "@/db/schema";
+import { contactSubmissions, newsletterSubscribers, user } from "@/db/schema";
 import { getAdminUser, type AdminUser } from "@/lib/admin/session";
 import { getAuth, type AdminRole } from "@/lib/auth";
 import {
@@ -94,6 +94,32 @@ export async function updateLeadStatusAction(leadId: string, status: string): Pr
   await audit(actor, "lead-status", "Leads", `Marked a lead as ${status}`);
   revalidatePath("/admin/leads");
   return { ok: true, message: "Status updated." };
+}
+
+/** Deletes a lead permanently, e.g. for a data-deletion request. */
+export async function deleteLeadAction(leadId: string): Promise<WriteResult> {
+  const actor = await currentPlatformAdmin();
+  const [removed] = await getDb()
+    .delete(contactSubmissions)
+    .where(eq(contactSubmissions.id, leadId))
+    .returning({ email: contactSubmissions.email });
+  if (!removed) return { ok: false, message: "This lead no longer exists." };
+  await audit(actor, "lead-delete", "Leads", `Deleted the lead for ${removed.email}`);
+  revalidatePath("/admin", "layout");
+  return { ok: true, message: "Lead deleted." };
+}
+
+/** Removes a subscriber (unsubscribe or data-deletion request). */
+export async function removeSubscriberAction(subscriberId: string): Promise<WriteResult> {
+  const actor = await currentPlatformAdmin();
+  const [removed] = await getDb()
+    .delete(newsletterSubscribers)
+    .where(eq(newsletterSubscribers.id, subscriberId))
+    .returning({ email: newsletterSubscribers.email });
+  if (!removed) return { ok: false, message: "This subscriber no longer exists." };
+  await audit(actor, "subscriber-remove", "Subscribers", `Removed ${removed.email} from the newsletter list`);
+  revalidatePath("/admin", "layout");
+  return { ok: true, message: "Subscriber removed." };
 }
 
 /* ----------------------------------- Users ----------------------------------- */

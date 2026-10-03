@@ -5,12 +5,14 @@ import { AdminPageHeader } from "@/components/admin/page-header";
 import { Button } from "@/components/ui/button";
 import { getDb } from "@/db";
 import { newsletterSubscribers } from "@/db/schema";
-import { requireAdminUser } from "@/lib/admin/session";
+import { DeleteRecordButton } from "@/components/admin/delete-record-button";
+import { isPlatformAdmin, requireAdminUser } from "@/lib/admin/session";
 
 export const metadata = { title: "Subscribers" };
 
 export default async function SubscribersPage() {
-  await requireAdminUser();
+  const adminUser = await requireAdminUser();
+  const admin = isPlatformAdmin(adminUser);
   const subscribers = await getDb()
     .select()
     .from(newsletterSubscribers)
@@ -42,6 +44,7 @@ export default async function SubscribersPage() {
                 <th className="px-4 py-2.5 font-semibold">Interests</th>
                 <th className="px-4 py-2.5 font-semibold">Status</th>
                 <th className="px-4 py-2.5 font-semibold">Signed up</th>
+                {admin ? <th className="px-4 py-2.5 font-semibold"><span className="sr-only">Actions</span></th> : null}
               </tr>
             </thead>
             <tbody>
@@ -63,6 +66,11 @@ export default async function SubscribersPage() {
                   <td className="px-4 py-2.5 text-muted-foreground">
                     {row.createdAt.toLocaleDateString("en-US", { dateStyle: "medium" })}
                   </td>
+                  {admin ? (
+                    <td className="px-4 py-2.5 text-right">
+                      <DeleteRecordButton kind="subscriber" id={row.id} email={row.email} />
+                    </td>
+                  ) : null}
                 </tr>
               ))}
             </tbody>

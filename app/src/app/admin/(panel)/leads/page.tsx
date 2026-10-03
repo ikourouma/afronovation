@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { contactIntents } from "@/content/contact-form";
 import { getDb } from "@/db";
 import { contactSubmissions } from "@/db/schema";
-import { requireAdminUser } from "@/lib/admin/session";
+import { DeleteRecordButton } from "@/components/admin/delete-record-button";
+import { isPlatformAdmin, requireAdminUser } from "@/lib/admin/session";
 
 export const metadata = { title: "Leads" };
 
@@ -20,7 +21,7 @@ function requestLabel(source: string, inquiryType: string | null) {
 }
 
 export default async function LeadsPage() {
-  await requireAdminUser();
+  const adminUser = await requireAdminUser();
   const leads = await getDb().select().from(contactSubmissions).orderBy(desc(contactSubmissions.createdAt)).limit(500);
 
   return (
@@ -58,7 +59,12 @@ export default async function LeadsPage() {
                     {lead.phone ? ` · ${lead.phone}` : ""}
                   </p>
                 </div>
-                <LeadStatusSelect leadId={lead.id} status={lead.status} />
+                <div className="flex flex-col items-end gap-2">
+                  <LeadStatusSelect leadId={lead.id} status={lead.status} />
+                  {isPlatformAdmin(adminUser) ? (
+                    <DeleteRecordButton kind="lead" id={lead.id} email={lead.email} />
+                  ) : null}
+                </div>
               </div>
               {lead.message ? (
                 <p className="mt-3 rounded-sm bg-muted px-4 py-3 text-sm whitespace-pre-line">{lead.message}</p>

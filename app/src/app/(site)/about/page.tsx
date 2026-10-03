@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 import { CredentialsStrip } from "@/components/credentials-strip";
 import { CtaSection } from "@/components/cta-section";
+import { GatedDownload } from "@/components/gated-download";
 import { ClientLogos } from "@/components/home/client-logos";
 import { InteriorHero } from "@/components/interior-hero";
 import { JsonLd } from "@/components/json-ld";
@@ -30,11 +31,15 @@ export const metadata: Metadata = {
 
 
 export default async function AboutPage() {
-  const [teamMembers, partnerLogos, portfolioItems] = await Promise.all([
+  const [teamMembers, partnerLogos, portfolioItems, downloads] = await Promise.all([
     getCollection("team"),
     getCollection("clientLogos"),
     getCollection("portfolio"),
+    getCollection("downloads"),
   ]);
+  const portfolioDownload = downloads.find(
+    (resource) => resource.slug === "capabilities-portfolio-2026" && resource.active,
+  );
   const facts = [
     { value: String(companyFacts.founded), label: "Founded" },
     { value: String(companyFacts.presence.length), label: "Countries of presence" },
@@ -144,6 +149,20 @@ export default async function AboutPage() {
       </Section>
 
       <ClientLogos logos={partnerLogos} />
+      {portfolioDownload ? (
+        <Section spacing="lg">
+          <Container>
+            <GatedDownload
+              resource={{
+                slug: portfolioDownload.slug,
+                title: portfolioDownload.title,
+                summary: portfolioDownload.summary,
+                format: portfolioDownload.format,
+              }}
+            />
+          </Container>
+        </Section>
+      ) : null}
       <CtaSection />
     </>
   );
