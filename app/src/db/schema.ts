@@ -65,6 +65,9 @@ export const user = pgTable("user", {
   role: text("role").notNull().default("editor"),
   // Deactivated users cannot sign in; history is kept for the change log.
   active: boolean("active").notNull().default(true),
+  // Presence for the admin "who is online" view.
+  lastSignInAt: timestamp("last_sign_in_at", { withTimezone: true }),
+  lastSeenAt: timestamp("last_seen_at", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 });

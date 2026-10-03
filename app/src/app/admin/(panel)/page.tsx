@@ -5,7 +5,10 @@ import { ArrowRight } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { getDb } from "@/db";
 import { contactSubmissions, contentChanges, newsletterSubscribers } from "@/db/schema";
+import { PresenceBadge } from "@/components/admin/presence-badge";
+import { formatRelative, getRecentSignInActivity, getTeamPresence } from "@/lib/admin/presence";
 import { isPlatformAdmin, requireAdminUser } from "@/lib/admin/session";
+import { adminRoleLabels, type AdminRole } from "@/lib/auth";
 import { collections } from "@/lib/cms/collections";
 
 export const metadata = { title: "Dashboard" };
@@ -29,6 +32,12 @@ export default async function AdminDashboard() {
     },
   ];
   const groups = [...new Set(collections.map((collection) => collection.group))];
+  const admin = isPlatformAdmin(adminUser);
+  const [team, signIns] = admin
+    ? await Promise.all([getTeamPresence(), getRecentSignInActivity()])
+    : [[], []];
+  const activeTeam = team.filter((member) => member.active);
+  const onlineCount = activeTeam.filter((member) => member.presence === "online").length;
 
   return (
     <>
@@ -56,6 +65,58 @@ export default async function AdminDashboard() {
           </div>
         ))}
       </dl>
+
+      {admin ? (
+        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+          <section aria-labelledby="team-heading" className="rounded-md border bg-background p-5">
+            <div className="flex items-baseline justify-between">
+              <h2 id="team-heading" className="font-heading text-lg font-bold">Team</h2>
+              <p className="text-sm text-muted-foreground">{onlineCount} online now</p>
+            </div>
+            <ul className="mt-3 divide-y">
+              {activeTeam.map((member) => (
+                <li key={member.id} className="flex flex-wrap items-center justify-between gap-2 py-2.5">
+                  <span>
+                    <span className="font-semibold">{member.name}</span>
+                    <span className="block text-xs text-muted-foreground">
+                      {adminRoleLabels[member.role as AdminRole] ?? member.role} · last active{" "}
+                      {formatRelative(member.lastSeenAt ?? member.lastSignInAt)}
+                    </span>
+                  </span>
+                  <PresenceBadge presence={member.presence} />
+                </li>
+              ))}
+            </ul>
+          </section>
+          <section aria-labelledby="signins-heading" className="rounded-md border bg-background p-5">
+            <div className="flex items-baseline justify-between">
+              <h2 id="signins-heading" className="font-heading text-lg font-bold">Sign-ins and sign-outs</h2>
+              <Link href="/admin/activity" className="text-sm font-semibold text-primary hover:underline">
+                Change log
+              </Link>
+            </div>
+            {signIns.length === 0 ? (
+              <p className="mt-3 text-sm text-muted-foreground">No activity yet.</p>
+            ) : (
+              <ul className="mt-3 divide-y">
+                {signIns.map((entry) => (
+                  <li key={entry.id} className="flex items-center justify-between gap-3 py-2.5 text-sm">
+                    <span>
+                      <span className="font-semibold">{entry.userName}</span>{" "}
+                      <span className={entry.action === "sign-in" ? "text-[#185c3d]" : "text-muted-foreground"}>
+                        {entry.action === "sign-in" ? "signed in" : "signed out"}
+                      </span>
+                    </span>
+                    <time className="text-muted-foreground" dateTime={entry.createdAt.toISOString()}>
+                      {entry.createdAt.toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}
+                    </time>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        </div>
+      ) : null}
 
       <h2 className="mt-12 font-heading text-xl font-bold">Website content</h2>
       <div className="mt-4 grid gap-6 lg:grid-cols-2">

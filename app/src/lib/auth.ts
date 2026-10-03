@@ -4,7 +4,7 @@ import { nextCookies } from "better-auth/next-js";
 import { eq } from "drizzle-orm";
 
 import { getDb } from "@/db";
-import { account, session, user, verification } from "@/db/schema";
+import { account, auditLog, session, user, verification } from "@/db/schema";
 
 export type AdminRole = "platform_admin" | "editor";
 
@@ -47,6 +47,39 @@ function createAuth() {
               .from(user)
               .where(eq(user.id, newSession.userId));
             return owner?.active ? { data: newSession } : false;
+          },
+          // Every sign-in is recorded in the change log.
+          after: async (newSession) => {
+            const now = new Date();
+            const [owner] = await db
+              .update(user)
+              .set({ lastSignInAt: now, lastSeenAt: now })
+              .where(eq(user.id, newSession.userId))
+              .returning({ name: user.name });
+            await db.insert(auditLog).values({
+              userId: newSession.userId,
+              userName: owner?.name ?? "Unknown user",
+              action: "sign-in",
+              target: "Account",
+              summary: "Signed in",
+            });
+          },
+        },
+        delete: {
+          // Sign-outs (and sessions ended by a Platform Admin) are recorded too.
+          after: async (endedSession) => {
+            const [owner] = await db
+              .update(user)
+              .set({ lastSeenAt: null })
+              .where(eq(user.id, endedSession.userId))
+              .returning({ name: user.name });
+            await db.insert(auditLog).values({
+              userId: endedSession.userId,
+              userName: owner?.name ?? "Unknown user",
+              action: "sign-out",
+              target: "Account",
+              summary: "Signed out",
+            });
           },
         },
       },

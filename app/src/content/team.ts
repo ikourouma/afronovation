@@ -6,10 +6,11 @@ export const teamMembers: TeamMember[] = [
     name: "Ibrahima Kourouma",
     role: "Managing Partner, Strategy & Transformation",
     bio: "Ibrahima Kourouma is an institutional transformation, digital trust and change management executive with more than a decade of experience, including at the African Development Bank (AfDB), Cisco Systems and government agencies. Known for leading change from strategy to adoption, he specializes in driving innovation, leading large-scale programs, and turning strategy into impact.",
-    credentials: ["PMP", "PROSCI", "CSM", "Agile Coach", "SAFe", "CISM"],
+    credentials: [],
     headshotKey: "team/ibrahima-kourouma-studio.jpg",
     headshotAlt: "Portrait of Ibrahima Kourouma, Managing Partner",
-    linkedinUrl: "https://www.linkedin.com/in/ikourouma/",
+    // Profile links are hidden for every partner until all four are available.
+    linkedinUrl: null,
     sortOrder: 1,
   },
   {
@@ -31,7 +32,6 @@ export const teamMembers: TeamMember[] = [
     credentials: [],
     headshotKey: "team/adrienne-boykin-studio.jpg",
     headshotAlt: "Portrait of Adrienne Boykin, Partner, Marketing & Communications",
-    // TODO(stakeholder-Q2): LinkedIn URL pending confirmation
     linkedinUrl: null,
     sortOrder: 3,
   },
@@ -44,7 +44,7 @@ export const teamMembers: TeamMember[] = [
     credentials: [],
     headshotKey: "team/justin-fawson-studio.jpg",
     headshotAlt: "Portrait of Justin Fawson, Partner, Operations & Government Relations",
-    linkedinUrl: "https://www.linkedin.com/in/justinfawson/",
+    linkedinUrl: null,
     sortOrder: 4,
   },
 ];

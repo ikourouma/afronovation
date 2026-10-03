@@ -1,9 +1,7 @@
-import { asc } from "drizzle-orm";
-
 import { AdminPageHeader } from "@/components/admin/page-header";
+import { PresenceBadge } from "@/components/admin/presence-badge";
 import { CreateUserForm, UserRowActions } from "@/components/admin/user-management";
-import { getDb } from "@/db";
-import { user } from "@/db/schema";
+import { formatRelative, getTeamPresence } from "@/lib/admin/presence";
 import { requirePlatformAdmin } from "@/lib/admin/session";
 import { adminRoleLabels, type AdminRole } from "@/lib/auth";
 
@@ -11,7 +9,7 @@ export const metadata = { title: "Users" };
 
 export default async function UsersPage() {
   const me = await requirePlatformAdmin();
-  const users = await getDb().select().from(user).orderBy(asc(user.name));
+  const users = await getTeamPresence();
 
   return (
     <>
@@ -28,6 +26,10 @@ export default async function UsersPage() {
                 {account.id === me.id ? <span className="font-normal text-muted-foreground"> (you)</span> : null}
               </p>
               <p className="text-sm text-muted-foreground">{account.email}</p>
+              <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                <PresenceBadge presence={account.presence} />
+                <span>Last sign-in: {formatRelative(account.lastSignInAt)}</span>
+              </p>
             </div>
             <span className="rounded-sm bg-secondary px-2 py-0.5 text-xs font-semibold text-secondary-foreground">
               {adminRoleLabels[account.role as AdminRole] ?? account.role}

@@ -152,7 +152,9 @@ export function AdminSidebar({ user, isAdmin, pendingApprovals, sections }: Side
 
   return (
     <>
-      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 bg-navy lg:block">{nav}</aside>
+      <aside className="hidden w-64 shrink-0 self-stretch bg-navy lg:block">
+        <div className="sticky top-0 h-screen">{nav}</div>
+      </aside>
       <div className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between bg-navy px-4 lg:hidden">
         <Logo tone="light" className="h-7" />
         <button
