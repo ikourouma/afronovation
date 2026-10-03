@@ -4,7 +4,7 @@ import { nextCookies } from "better-auth/next-js";
 import { eq } from "drizzle-orm";
 
 import { getDb } from "@/db";
-import { account, auditLog, session, user, verification } from "@/db/schema";
+import { account, auditLog, rateLimit, session, user, verification } from "@/db/schema";
 
 export type AdminRole = "platform_admin" | "editor";
 
@@ -19,7 +19,7 @@ function createAuth() {
   return betterAuth({
     database: drizzleAdapter(db, {
       provider: "pg",
-      schema: { user, session, account, verification },
+      schema: { user, session, account, verification, rateLimit },
     }),
     emailAndPassword: {
       enabled: true,
@@ -31,6 +31,18 @@ function createAuth() {
       additionalFields: {
         role: { type: "string", defaultValue: "editor", input: false },
         active: { type: "boolean", defaultValue: true, input: false },
+      },
+    },
+    // Brute-force protection: limits are stored in the database so they hold
+    // across every serverless instance.
+    rateLimit: {
+      enabled: true,
+      storage: "database",
+      window: 60,
+      max: 100,
+      customRules: {
+        "/sign-in/email": { window: 300, max: 5 },
+        "/change-password": { window: 300, max: 5 },
       },
     },
     session: {

@@ -9,7 +9,9 @@ type ProvidersProps = {
 
 export function Providers({ children }: ProvidersProps) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
+    // The brand uses one light theme with navy bands (see globals.css), so
+    // component dark-mode variants must stay off.
+    <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false}>
       {children}
     </ThemeProvider>
   );

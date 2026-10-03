@@ -17,6 +17,7 @@ import {
   organizationTypeLabels,
 } from "@/lib/contact-schema";
 import type { ContactFormValues, DemoRequestValues } from "@/lib/contact-schema";
+import { allowFormSubmission, tooManyRequests } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -105,6 +106,10 @@ async function saveLeadLocally(submission: Submission) {
 }
 
 export async function POST(request: Request) {
+  if (!(await allowFormSubmission(request, "contact", { limit: 5, windowSeconds: 600 }))) {
+    return tooManyRequests();
+  }
+
   let body: unknown;
 
   try {

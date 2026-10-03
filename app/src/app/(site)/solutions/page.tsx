@@ -37,7 +37,7 @@ const sectionLinks = [
 ];
 
 /* Phase colours follow the portfolio's NDAP chevrons (navy to pink). */
-const phaseColors = ["#071e36", "#1b2f63", "#3c3a8f", "#6a4fc4", "#b8609f"];
+const phaseColors = ["#071e36", "#1b2f63", "#3c3a8f", "#5b41c9", "#9c3f80"];
 
 export default async function SolutionsPage() {
   const practiceAreas = await getCollection("practices");
@@ -250,7 +250,7 @@ export default async function SolutionsPage() {
                 className="rounded-sm p-5 text-white md:[clip-path:polygon(0_0,calc(100%-14px)_0,100%_50%,calc(100%-14px)_100%,0_100%)] md:pr-7"
                 style={{ backgroundColor: phaseColors[i] }}
               >
-                <p className="text-xs font-bold text-[#f6c86a]">{phase.days}</p>
+                <p className="text-xs font-bold text-[#fff3d6]">{phase.days}</p>
                 <p className="mt-1 font-heading text-lg leading-snug font-bold">{phase.title}</p>
                 <p className="mt-1.5 font-serif text-sm text-white/80">{phase.detail}</p>
               </li>

@@ -18,7 +18,7 @@ export async function SiteTopBars() {
   const phoneHref = contact.phone.replace(/[^\d+]/g, "");
 
   return (
-    <div className="theme-navy">
+    <section aria-label="Offices and quick links" className="theme-navy">
       <Container className="hidden h-9 items-center justify-between gap-6 text-xs text-muted-foreground md:flex">
         <p>{companyFacts.presence.join(" · ")}</p>
         <nav aria-label="Utility" className="flex items-center gap-5">
@@ -43,6 +43,6 @@ export async function SiteTopBars() {
       {announcements.length > 0 ? (
         <FlashBanner announcements={announcements} />
       ) : null}
-    </div>
+    </section>
   );
 }

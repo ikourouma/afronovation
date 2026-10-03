@@ -8,12 +8,17 @@ import { downloadRequestSchema } from "@/lib/download-schema";
 import { CONTACT_FROM, CONTACT_TO, getResend } from "@/lib/email";
 import { media } from "@/lib/media";
 import { subscribeToNewsletter } from "@/lib/newsletter";
+import { allowFormSubmission, tooManyRequests } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://afronovation.com";
 
 export async function POST(request: Request) {
+  if (!(await allowFormSubmission(request, "download", { limit: 10, windowSeconds: 600 }))) {
+    return tooManyRequests();
+  }
+
   let body: unknown;
   try {
     body = await request.json();

@@ -1,26 +1,19 @@
 import type { MetadataRoute } from "next";
 
+import { tagline } from "@/content/site";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "afronovation, Inc.",
-    short_name: "afronovation",
-    description:
-      "Inspiring possibilities through strategy, technology, and digital transformation.",
+    name: "Afronovation, Inc.",
+    short_name: "Afronovation",
+    description: tagline,
     start_url: "/",
     display: "standalone",
-    background_color: "#0b0e14",
-    theme_color: "#0b0e14",
+    background_color: "#02132c",
+    theme_color: "#02132c",
     icons: [
-      {
-        src: "/icon",
-        sizes: "32x32",
-        type: "image/png",
-      },
-      {
-        src: "/apple-icon",
-        sizes: "180x180",
-        type: "image/png",
-      },
+      { src: "/icon.png", sizes: "512x512", type: "image/png" },
+      { src: "/apple-icon.png", sizes: "180x180", type: "image/png" },
     ],
   };
 }

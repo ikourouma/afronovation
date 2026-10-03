@@ -14,6 +14,7 @@ Next.js 15 (App Router) - TypeScript - Tailwind CSS v4 - Radix UI (shadcn) - Neo
 | `knowledgebase.md` | Living project brain: decisions, architecture, env registry, conventions |
 | `backlog.md` | Phased execution plan (Phases 0-6) with priorities |
 | `docs/rebuild-guide.md` | Operator runbook: scripts, credentials, DNS cutover, rollback |
+| `docs/launch-checklist.md` | Phase 6: verified checks, account tasks, smoke test, go-live and rollback |
 | `docs/lead-handling-guide.md` | Team guide: responding to website leads, downloads, subscribers and data requests |
 | `.env.example` | Environment variable template (placeholders only) |
 | `scripts/` | Idempotent PowerShell setup scripts (00-06) |

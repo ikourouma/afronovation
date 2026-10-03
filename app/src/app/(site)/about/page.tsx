@@ -82,6 +82,7 @@ export default async function AboutPage() {
             <p className="font-serif text-lg leading-relaxed">{whoWeAre}</p>
             <p className="font-serif text-lg leading-relaxed text-muted-foreground">{companyMission}</p>
           </div>
+          <div>
           <dl className="grid grid-cols-2 gap-4">
             {facts.map((fact, i) => (
               <div
@@ -93,10 +94,11 @@ export default async function AboutPage() {
                 <dd className="font-heading text-4xl font-bold">{fact.value}</dd>
               </div>
             ))}
-            <p className="col-span-2 font-serif text-sm text-muted-foreground">
-              {companyFacts.presence.join(" · ")}
-            </p>
           </dl>
+          <p className="mt-4 font-serif text-sm text-muted-foreground">
+            {companyFacts.presence.join(" · ")}
+          </p>
+          </div>
         </Container>
       </Section>
 

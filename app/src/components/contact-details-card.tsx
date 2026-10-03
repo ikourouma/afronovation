@@ -15,7 +15,7 @@ export async function ContactDetailsCard() {
   ];
 
   return (
-    <aside className="theme-navy h-full rounded-md p-8">
+    <section aria-label="Contact details" className="theme-navy h-full rounded-md p-8">
       <h2 className="font-heading text-2xl font-bold">{contactPageCopy.contactUs}</h2>
       <p className="mt-2 font-serif text-muted-foreground">{contactPageCopy.intro}</p>
       <address className="mt-8 space-y-6 not-italic">
@@ -38,6 +38,6 @@ export async function ContactDetailsCard() {
         ))}
       </address>
       <SocialLinks heading="Follow us" tone="navy" className="mt-8" />
-    </aside>
+    </section>
   );
 }

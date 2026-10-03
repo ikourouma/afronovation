@@ -1,9 +1,14 @@
 import { newsletterSchema } from "@/lib/newsletter-schema";
 import { subscribeToNewsletter } from "@/lib/newsletter";
+import { allowFormSubmission, tooManyRequests } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
+  if (!(await allowFormSubmission(request, "newsletter", { limit: 5, windowSeconds: 600 }))) {
+    return tooManyRequests();
+  }
+
   let body: unknown;
   try {
     body = await request.json();
